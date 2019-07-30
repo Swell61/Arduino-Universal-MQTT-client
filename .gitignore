@@ -3,3 +3,10 @@
 ################################################################################
 
 /.vs/ArduinoMQTTClient/v16/ipch/AutoPCH
+/.vs/ArduinoMQTTClient/v16/.suo
+/.vs/ArduinoMQTTClient/v16/Browse.VC.opendb
+/.vs/ArduinoMQTTClient/v16/Browse.VC.db
+/ArduinoMQTTClient/src/arduino folders read me.txt
+/ArduinoMQTTClient/__vm/.ArduinoMQTTClient.vsarduino.h
+/ArduinoMQTTClient/ArduinoMQTTClient.vcxproj.user
+/ArduinoMQTTClient/ArduinoMQTTClient.vcxproj.filters
