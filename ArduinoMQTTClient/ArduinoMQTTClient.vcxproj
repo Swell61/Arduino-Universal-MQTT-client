@@ -116,10 +116,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Configuration.h" />
+    <ClInclude Include="Configurator.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="MQTTDevice.h" />
     <ClInclude Include="__vm\.ArduinoMQTTClient.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Configuration.cpp" />
+    <ClCompile Include="Configurator.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="MQTTDevice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

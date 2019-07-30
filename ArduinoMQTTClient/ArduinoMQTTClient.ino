@@ -5,6 +5,9 @@
 */
 
 // the setup function runs once when you press reset or power the board
+#include "Configuration.h"
+#include "Controller.h"
+#include "Configurator.h"
 void setup() {
 
 }

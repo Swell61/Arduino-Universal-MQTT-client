@@ -14,7 +14,8 @@ class MQTTDevice {
 	enum DEVICE_TYPE {
 		RELAY,
 		SWITCH,
-		CONTACT
+		CONTACT,
+		ALARM
 	};
 
 private:
