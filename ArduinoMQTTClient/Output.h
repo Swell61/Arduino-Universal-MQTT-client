@@ -8,6 +8,11 @@
 #else
 	#include "WProgram.h"
 #endif
+/*
+	Author: Samuel Bailey
+	Date: 31/07/2019
+	Purpose: Abstract class for any MQTTDevices that are outputs for the system
+*/
 class Output : public MQTTDevice {
 
 };

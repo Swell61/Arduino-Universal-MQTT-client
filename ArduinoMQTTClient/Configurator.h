@@ -9,7 +9,11 @@
 	#include "WProgram.h"
 #endif
 
-
+/*
+	Author: Samuel Bailey
+	Date: 30/07/2019
+	Purpose: Logic for the user conguration of the system on boot up
+*/
 
 #endif
 

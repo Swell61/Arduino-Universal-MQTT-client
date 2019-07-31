@@ -8,6 +8,11 @@
 #else
 	#include "WProgram.h"
 #endif
+/*
+	Author: Samuel Bailey
+	Date: 31/07/2019
+	Purpose: Logic for a switch input
+*/
 class Switch : public Input {
 
 };

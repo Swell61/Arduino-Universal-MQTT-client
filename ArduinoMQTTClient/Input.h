@@ -9,8 +9,16 @@
 	#include "WProgram.h"
 #endif
 
-class Input : public MQTTDevice {
+/*
+	Author: Samuel Bailey
+	Date: 31/07/2019
+	Purpose: Abstract class for an MQTT device that is an input to the system
+*/
 
+class Input : public MQTTDevice {
+public:
+	byte getPinNum();
+	virtual void sendMessage() = 0;
 };
 
 #endif

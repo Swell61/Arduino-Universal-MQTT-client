@@ -8,7 +8,11 @@
 #else
 	#include "WProgram.h"
 #endif
-
+/*
+	Author: Samuel Bailey
+	Date: 31/07/2019
+	Purpose: Control class for running the system. Governs the running of the system.
+*/
 class Controller {
 
 private:

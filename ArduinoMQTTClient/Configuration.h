@@ -10,6 +10,12 @@
 #endif
 #include <IPAddress.h>
 
+/*
+	Author: Samuel Bailey
+	Date: 30/07/2019
+	Purpose: Holds the current configuration for the system
+*/
+
 class Configuration {
 
 private:

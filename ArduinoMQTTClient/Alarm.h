@@ -8,6 +8,11 @@
 #else
 	#include "WProgram.h"
 #endif
+/*
+	Author: Samuel Bailey
+	Date: 31/07/2019
+	Purpose: Provides alarm specific functionality as an output MQTT device
+*/
 class Alarm : public Output {
 
 };

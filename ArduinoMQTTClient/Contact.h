@@ -8,6 +8,11 @@
 #else
 	#include "WProgram.h"
 #endif
+/*
+	Author: Samuel Bailey
+	Date: 31/07/2019
+	Purpose: Logic for contact based input (ie a contact for a window or door to detect whether it is open or not)
+*/
 class Contact : public Input {
 
 };
