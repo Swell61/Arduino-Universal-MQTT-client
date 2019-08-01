@@ -16,6 +16,8 @@
 */
 class Output : public MQTTDevice {
 
+public:
+	char* getDeviceName();
 };
 
 #endif

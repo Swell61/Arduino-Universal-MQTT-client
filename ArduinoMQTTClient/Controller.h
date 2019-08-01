@@ -10,6 +10,8 @@
 #endif
 #include <UIPEthernet/UIPEthernet.h>
 #include <pubsubclient/src/PubSubClient.h>
+#include "Input.h"
+#include "Output.h"
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
@@ -18,11 +20,21 @@
 class Controller {
 
 private:
+	IPAddress arduinoIP = IPAddress(192, 168, 2, 211);
+	IPAddress MQTTBrokerIP = IPAddress(192, 168, 2, 1);
+	byte mac[6] = { 0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
+	EthernetClient ethConnection;
+	PubSubClient MQTTClient = PubSubClient(ethConnection);
+	const char * arduinoName = "MQTT1";
 
+	Input* inputDevices;
+	byte numOfInputs;
+	Output* outputDevices;
+	byte numOfOutputs;
 
 public:
 	Controller();
-
+	void setup();
 };
 
 #endif
