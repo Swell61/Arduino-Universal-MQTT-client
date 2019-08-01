@@ -8,7 +8,7 @@
 #else
 	#include "WProgram.h"
 #endif
-
+#include "MQTTDevice.h"
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019

@@ -8,6 +8,8 @@
 #else
 	#include "WProgram.h"
 #endif
+#include <UIPEthernet/UIPEthernet.h>
+#include <pubsubclient/src/PubSubClient.h>
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
@@ -17,8 +19,9 @@ class Controller {
 
 private:
 
+
 public:
-	Controller()
+	Controller();
 
 };
 

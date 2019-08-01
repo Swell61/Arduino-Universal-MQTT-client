@@ -10,3 +10,5 @@
 /ArduinoMQTTClient/__vm/.ArduinoMQTTClient.vsarduino.h
 /ArduinoMQTTClient/ArduinoMQTTClient.vcxproj.user
 /ArduinoMQTTClient/ArduinoMQTTClient.vcxproj.filters
+/ArduinoMQTTClient/__vm
+/ArduinoMQTTClient/Debug

@@ -7,7 +7,6 @@
 #else
 	#include "WProgram.h"
 #endif
-
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
@@ -16,11 +15,9 @@
 
 class IMQTTDevice {
 private:
-	byte pinNumber; // Pin number device is on
-	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
+	
 
 public:
-	virtual void action() = 0;
 
 };
 

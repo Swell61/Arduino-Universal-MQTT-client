@@ -8,6 +8,7 @@
 #else
 	#include "WProgram.h"
 #endif
+#include "Output.h"
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019

@@ -5,18 +5,8 @@
 */
 
 // the setup function runs once when you press reset or power the board
-#include "IMQTTDevice.h"
-#include "CurtainPull.h"
-#include "Relay.h"
-#include "Alarm.h"
-#include "Output.h"
-#include "Contact.h"
-#include "TempSensor.h"
-#include "Switch.h"
-#include "Input.h"
-#include "Configuration.h"
 #include "Controller.h"
-#include "Configurator.h"
+
 void setup() {
 
 }
