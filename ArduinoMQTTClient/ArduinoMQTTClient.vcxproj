@@ -138,7 +138,6 @@
     <ClCompile Include="Contact.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="CurtainPull.cpp" />
-    <ClCompile Include="IMQTTDevice.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MQTTDevice.cpp" />
     <ClCompile Include="Output.cpp" />
