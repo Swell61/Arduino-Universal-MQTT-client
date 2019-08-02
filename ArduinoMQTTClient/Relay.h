@@ -16,6 +16,8 @@
 */
 class Relay : public Output {
 
+public:
+	void action(MQTTDevice::ACTION action);
 };
 
 #endif

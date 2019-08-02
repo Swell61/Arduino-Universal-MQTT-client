@@ -15,6 +15,8 @@
 	Purpose: Logic for curtain pull (or blind roller)
 */
 class CurtainPull : public Output {
+public:
+	void action(MQTTDevice::ACTION action);
 
 };
 

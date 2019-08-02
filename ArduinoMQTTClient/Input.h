@@ -17,7 +17,6 @@
 
 class Input : public MQTTDevice {
 public:
-	byte getPinNum();
 	virtual void sendMessage() = 0;
 };
 

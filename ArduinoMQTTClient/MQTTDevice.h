@@ -24,6 +24,18 @@ public:
 		CONTACT,
 		ALARM
 	};
+
+	enum ACTION {
+		OFF,
+		ON,
+		OPEN,
+		CLOSE,
+		INFO,
+		CAUTION,
+		WARNING,
+	};
+
+	byte getPinNum();
 	
 protected:
 	byte pinNum; // Pin number device is on

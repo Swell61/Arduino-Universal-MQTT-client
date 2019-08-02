@@ -18,6 +18,7 @@ class Output : public MQTTDevice {
 
 public:
 	char* getDeviceName();
+	virtual void action(MQTTDevice::ACTION action);
 };
 
 #endif
