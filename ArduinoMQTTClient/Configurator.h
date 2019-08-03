@@ -8,6 +8,8 @@
 #else
 	#include "WProgram.h"
 #endif
+#include "Input.h"
+#include "Output.h"
 /*
 	Author: Samuel Bailey
 	Date: 30/07/2019
@@ -16,19 +18,24 @@
 class Configurator {
 private:
 	int EEPROMpointer = 0;
-	byte numOfInputs;
-	byte numOfOutputs;
+	byte* MACAddress; // Always 6 bytes
+	byte* arduinoIP; // IPv4 always 4 bytes
+	byte* MQTTBrokerIP; // IPv4 always 4 bytes
+	byte* numOfInputs;
+	byte* numOfOutputs;
 	Input* inputs;
 	Output* outputs;
-	byte macAddress[6];
-	byte arduinoIP[4];
-	byte MQTTBrokerIP[4];
-
+	
+	Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input* inputs, byte* numOfOutputs, Output* outputs);
 	void setup();
-	byte getNumOfInputs(byte EEPROMPointer);
-	byte getNumOfOutputs(byte EEPROMPointer);
-	Input* loadInputsFromEEPROM(byte EEPROMPointer);
-	Output* loadOutputsFromEEPROM(byte EEPROMPointer);
+	void setMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
+	void setArduinoIP(byte EEPROMPointer, byte* arduinoIP); // IPv4 always 4 bytes
+	void setMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP); // IPV4 always 4 bytes
+	void setNumOfInputs(byte EEPROMPointer, byte* numOfInputs);
+	void setNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
+	void setInputs(byte EEPROMPointer, byte* inputs);
+	void setOutputs(byte EEPROMPointer, byte* outputs);
+
 };
 #endif
 
