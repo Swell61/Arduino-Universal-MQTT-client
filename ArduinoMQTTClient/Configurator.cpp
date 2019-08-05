@@ -98,6 +98,7 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 	numOfInputs: Number of inputs stored in EEPROM
 */
 void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+	// TODO: Read each input, check its type variable and cast to the correct type
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
 		EEPROM.get(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
 	}
@@ -123,6 +124,7 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 	numOfOutputs: Number of outputs stored in EEPROM
 */
 void Configurator::readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+	// TODO: Read each output, check its type variable and cast to the correct type
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
 		EEPROM.get(EEPROMPointer++, *(outputs + outputIndex)); // Retrieve each output and store in the array
 	}
