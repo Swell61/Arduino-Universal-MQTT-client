@@ -10,20 +10,20 @@
 */
 void Configurator::setup() {
 	
-	// Get Arduino MAC address
+	// Read Arduino MAC address
 	readMACAddress(EEPROMPointer, MACAddress);
-	// Get Arduino IP Address
+	// Read Arduino IP Address
 	readArduinoIP(EEPROMPointer, arduinoIP);
-	// Get MQTT broker IP address
+	// Read MQTT broker IP address
 	readArduinoIP(EEPROMPointer, MQTTBrokerIP);
-	// Get number of inputs
+	// Read number of inputs
 	readNumOfInputs(EEPROMPointer, numOfInputs);
-	// Get inputs
+	// Read inputs
 	inputs = (Input*)calloc(sizeof(Input), *(numOfInputs));
 	readInputs(EEPROMPointer, inputs, *(numOfInputs));
-	// Get num of outputs
+	// Read num of outputs
 	readNumOfOutputs(EEPROMPointer, numOfOutputs);
-	// Get outputs
+	// Read outputs
 	outputs = (Output*)calloc(sizeof(Output), *(numOfOutputs));
 	readOutputs(EEPROMPointer, outputs, *(numOfOutputs));
 
@@ -35,7 +35,7 @@ arduinoIP(arduinoIP), MQTTBrokerIP(MQTTBrokerIP), numOfInputs(numOfInputs), inpu
 }
 
 /*
-	Get all 6 bytes of the MAC address and set the values in the array of the pointer
+	Read all 6 bytes of the MAC address and set the values in the array of the pointer
 	
 	Parameters:
 	EEPROMPointer: Location of first byte of 6 MAC address bytes
@@ -51,7 +51,7 @@ void Configurator::readMACAddress(byte EEPROMPointer, byte* MACAddress) {
 }
 
 /*
-	Get all 4 bytes of the arduinos IP address and set the values in the array of the pointer
+	Read all 4 bytes of the arduinos IP address and set the values in the array of the pointer
 
 	Parameters:
 	EEPROMPointer: Location of first byte of 4 arduino IP address bytes
@@ -65,7 +65,7 @@ void Configurator::readArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
 }
 
 /*
-	Get all 4 bytes of the MQTT broker IP address and set the values in the array of the pointer
+	Read all 4 bytes of the MQTT broker IP address and set the values in the array of the pointer
 
 	Parameters:
 	EEPROMPointer: Location of first byte of 4 MQTT broker IP address bytes
@@ -79,7 +79,7 @@ void Configurator::readMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
 }
 
 /*
-	Get the number of inputs devices stored in EEPROM
+	Read the number of inputs devices stored in EEPROM
 
 	Parameters:
 	EEPROMPointer: Location of byte in EEPROM that stores number of input devices
@@ -90,7 +90,7 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 }
 
 /*
-	Get the inputs stored in EEPROM
+	Read the inputs stored in EEPROM
 
 	Parameters:
 	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
@@ -99,12 +99,12 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 */
 void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, inputs[inputIndex]); // Retrieve each input and store in the array
+		EEPROM.get(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
 	}
 }
 
 /*
-	Get the number of outputs devices stored in EEPROM
+	Read the number of outputs devices stored in EEPROM
 
 	Parameters:
 	EEPROMPointer: Location of byte in EEPROM that stores number of output devices
@@ -115,7 +115,7 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 }
 
 /*
-	Get the outputs stored in EEPROM
+	Read the outputs stored in EEPROM
 
 	Parameters:
 	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
@@ -124,7 +124,6 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 */
 void Configurator::readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, outputs[outputIndex]); // Retrieve each output and store in the array
+		EEPROM.get(EEPROMPointer++, *(outputs + outputIndex)); // Retrieve each output and store in the array
 	}
 }
-
