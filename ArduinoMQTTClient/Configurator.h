@@ -36,6 +36,13 @@ private:
 	void readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs);
 	void readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs);
 
+	void writeMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
+	void writeArduinoIP(byte EEPROMPointer, byte* arduinoIP); // IPv4 always 4 bytes
+	void writeMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP); // IPV4 always 4 bytes
+	void writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs);
+	void writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
+	void writeInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs);
+	void writeOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs);
 };
 #endif
 

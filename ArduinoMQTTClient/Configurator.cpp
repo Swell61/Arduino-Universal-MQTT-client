@@ -83,7 +83,7 @@ void Configurator::readMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
 
 	Parameters:
 	EEPROMPointer: Location of byte in EEPROM that stores number of input devices
-	numOfInputs: Pointer to the byte that stores number of inptus in configuration
+	numOfInputs: Pointer to the byte that stores number of inputs in configuration
 */
 void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 	*(numOfInputs) = EEPROM.read(EEPROMPointer++); // Read the EEPROM at address EEPROMPointer, then increment EEPROMPointer
@@ -125,5 +125,101 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 void Configurator::readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
 		EEPROM.get(EEPROMPointer++, *(outputs + outputIndex)); // Retrieve each output and store in the array
+	}
+}
+
+
+
+/*
+	Write all 6 bytes of the MAC address from the array into EEPROM, if changed
+
+	Parameters:
+	EEPROMPointer: Location of first byte of 6 MAC address bytes
+	MACAddress: Pointer to MAC address array held in configuration
+*/
+void Configurator::writeMACAddress(byte EEPROMPointer, byte* MACAddress) {
+	EEPROM.update(EEPROMPointer++, *(MACAddress)); // Write first byte of MAC address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MACAddress + 1)); // Write second byte of MAC address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MACAddress + 2)); // Write third byte of MAC address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MACAddress + 3)); // Write fourth byte of MAC address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MACAddress + 4)); // Write fifth byte of MAC address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MACAddress + 5)); // Write sixth byte of MAC address and increment pointer for next item write
+}
+
+/*
+	Write all 4 bytes of the arduinos IP address to EEPROM, if changed
+
+	Parameters:
+	EEPROMPointer: Location of first byte of 4 arduino IP address bytes
+	arduinoIP: Pointer to arduino IP address array held in configuration
+*/
+void Configurator::writeArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
+	EEPROM.update(EEPROMPointer++, *(arduinoIP)); // Write first byte of arduino IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(arduinoIP + 1)); // Write second byte of arduino IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(arduinoIP + 2)); // Write third byte of arduino IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(arduinoIP + 3)); // Write fourth byte of arduino IP address and increment pointer for next item write
+}
+
+/*
+	Write all 4 bytes of the MQTT broker IP address to EEPROM, if changed
+
+	Parameters:
+	EEPROMPointer: Location of first byte of 4 MQTT broker IP address bytes
+	MQTTBrokerIP: Pointer to MQTT broker IP address array held in configuration
+*/
+void Configurator::writeMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
+	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP)); // Write first byte of MQTT broker IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP + 1)); // Write second byte of MQTT broker IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP + 2)); // Write third byte of MQTT broker IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP + 3)); // Write fourth byte of MQTT broker IP address and increment pointer for next item Write
+}
+
+/*
+	Write the number of inputs devices stored in EEPROM
+
+	Parameters:
+	EEPROMPointer: Location of byte in EEPROM that stores number of input devices
+	numOfInputs: Pointer to the byte that stores number of inputs in configuration
+*/
+void Configurator::writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
+	EEPROM.update(EEPROMPointer++, *(numOfInputs)); // Write the EEPROM at address EEPROMPointer, then increment EEPROMPointer
+}
+
+/*
+	Write the inputs stored in EEPROM
+
+	Parameters:
+	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
+	inputs: Pointer to block of memory to store inputs in
+	numOfInputs: Number of inputs stored in EEPROM
+*/
+void Configurator::writeInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
+		EEPROM.put(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
+	}
+}
+
+/*
+	Write the number of outputs devices stored in EEPROM
+
+	Parameters:
+	EEPROMPointer: Location of byte in EEPROM that stores number of output devices
+	numOfInputs: Pointer to the byte that stores number of outputs in configuration
+*/
+void Configurator::writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
+	EEPROM.update(EEPROMPointer++, *(numOfOutputs)); // Write the EEPROM at address EEPROMPoitnter, then increment EEPROMPointer
+}
+
+/*
+	Write the outputs stored in EEPROM
+
+	Parameters:
+	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
+	outputs: Pointer to block of memory to store inputs in
+	numOfOutputs: Number of outputs stored in EEPROM
+*/
+void Configurator::writeOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
+		EEPROM.put(EEPROMPointer++, *(outputs + numOfOutputs)); // Retrieve each output and store in the array
 	}
 }
