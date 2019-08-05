@@ -28,13 +28,13 @@ private:
 	
 	Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input* inputs, byte* numOfOutputs, Output* outputs);
 	void setup();
-	void setMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
-	void setArduinoIP(byte EEPROMPointer, byte* arduinoIP); // IPv4 always 4 bytes
-	void setMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP); // IPV4 always 4 bytes
-	void setNumOfInputs(byte EEPROMPointer, byte* numOfInputs);
-	void setNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
-	void setInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs);
-	void setOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs);
+	void readMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
+	void readArduinoIP(byte EEPROMPointer, byte* arduinoIP); // IPv4 always 4 bytes
+	void readMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP); // IPV4 always 4 bytes
+	void readNumOfInputs(byte EEPROMPointer, byte* numOfInputs);
+	void readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
+	void readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs);
+	void readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs);
 
 };
 #endif
