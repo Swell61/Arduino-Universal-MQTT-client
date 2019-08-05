@@ -59,9 +59,9 @@ void Configurator::readMACAddress(byte EEPROMPointer, byte* MACAddress) {
 */
 void Configurator::readArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
 	*(arduinoIP) = EEPROM.read(EEPROMPointer++); // Read first byte of arduino IP address and increment pointer for next byte
-	*(arduinoIP) = EEPROM.read(EEPROMPointer++); // Read second byte of arduino IP address and increment pointer for next byte
-	*(arduinoIP) = EEPROM.read(EEPROMPointer++); // Read third byte of arduino IP address and increment pointer for next byte
-	*(arduinoIP) = EEPROM.read(EEPROMPointer++); // Read fourth byte of arduino IP address and increment pointer for next item read
+	*(arduinoIP + 1) = EEPROM.read(EEPROMPointer++); // Read second byte of arduino IP address and increment pointer for next byte
+	*(arduinoIP + 2) = EEPROM.read(EEPROMPointer++); // Read third byte of arduino IP address and increment pointer for next byte
+	*(arduinoIP + 3) = EEPROM.read(EEPROMPointer++); // Read fourth byte of arduino IP address and increment pointer for next item read
 }
 
 /*
@@ -73,9 +73,9 @@ void Configurator::readArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
 */
 void Configurator::readMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
 	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read first byte of MQTT broker IP address and increment pointer for next byte
-	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read second byte of MQTT broker IP address and increment pointer for next byte
-	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read third byte of MQTT broker IP address and increment pointer for next byte
-	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read fourth byte of MQTT broker IP address and increment pointer for next item read
+	*(MQTTBrokerIP + 1) = EEPROM.read(EEPROMPointer++); // Read second byte of MQTT broker IP address and increment pointer for next byte
+	*(MQTTBrokerIP + 2) = EEPROM.read(EEPROMPointer++); // Read third byte of MQTT broker IP address and increment pointer for next byte
+	*(MQTTBrokerIP + 3) = EEPROM.read(EEPROMPointer++); // Read fourth byte of MQTT broker IP address and increment pointer for next item read
 }
 
 /*
