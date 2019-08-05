@@ -17,7 +17,7 @@
 */
 class Configurator {
 private:
-	int EEPROMpointer = 0;
+	int EEPROMPointer = 0;
 	byte* MACAddress; // Always 6 bytes
 	byte* arduinoIP; // IPv4 always 4 bytes
 	byte* MQTTBrokerIP; // IPv4 always 4 bytes
@@ -33,8 +33,8 @@ private:
 	void setMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP); // IPV4 always 4 bytes
 	void setNumOfInputs(byte EEPROMPointer, byte* numOfInputs);
 	void setNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
-	void setInputs(byte EEPROMPointer, byte* inputs);
-	void setOutputs(byte EEPROMPointer, byte* outputs);
+	void setInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs);
+	void setOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs);
 
 };
 #endif

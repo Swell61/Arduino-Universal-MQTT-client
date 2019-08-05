@@ -5,21 +5,27 @@
 #include "Configurator.h"
 #include <EEPROM/src/EEPROM.h>
 
+/*
+	Set all the values for the pointers passed from the configuration to the values read from EEPROM.
+*/
 void Configurator::setup() {
 	
 	// Get Arduino MAC address
-
+	setMACAddress(EEPROMPointer, MACAddress);
 	// Get Arduino IP Address
-
+	setArduinoIP(EEPROMPointer, arduinoIP);
 	// Get MQTT broker IP address
-
+	setArduinoIP(EEPROMPointer, MQTTBrokerIP);
 	// Get number of inputs
-
+	setNumOfInputs(EEPROMPointer, numOfInputs);
 	// Get inputs
-
+	inputs = (Input*)calloc(sizeof(Input), *(numOfInputs));
+	setInputs(EEPROMPointer, inputs, *(numOfInputs));
 	// Get num of outputs
-
+	setNumOfOutputs(EEPROMPointer, numOfOutputs);
 	// Get outputs
+	outputs = (Output*)calloc(sizeof(Output), *(numOfOutputs));
+	setOutputs(EEPROMPointer, outputs, *(numOfOutputs));
 
 }
 
@@ -59,6 +65,20 @@ void Configurator::setArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
 }
 
 /*
+	Get all 4 bytes of the MQTT broker IP address and set the values in the array of the pointer
+
+	Parameters:
+	EEPROMPointer: Location of first byte of 4 MQTT broker IP address bytes
+	MQTTBrokerIP: Pointer to MQTT broker IP address array held in configuration
+*/
+void Configurator::setMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
+	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read first byte of MQTT broker IP address and increment pointer for next byte
+	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read second byte of MQTT broker IP address and increment pointer for next byte
+	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read third byte of MQTT broker IP address and increment pointer for next byte
+	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read fourth byte of MQTT broker IP address and increment pointer for next item read
+}
+
+/*
 	Get the number of inputs devices stored in EEPROM
 
 	Parameters:
@@ -70,6 +90,20 @@ void Configurator::setNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 }
 
 /*
+	Get the inputs stored in EEPROM
+
+	Parameters:
+	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
+	inputs: Pointer to block of memory to store inputs in
+	numOfInputs: Number of inputs stored in EEPROM
+*/
+void Configurator::setInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
+		EEPROM.get(EEPROMPointer++, inputs[inputIndex]); // Retrieve each input and store in the array
+	}
+}
+
+/*
 	Get the number of outputs devices stored in EEPROM
 
 	Parameters:
@@ -78,4 +112,18 @@ void Configurator::setNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 */
 void Configurator::setNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 	*(numOfOutputs) = EEPROM.read(EEPROMPointer++); // Read the EEPROM at address EEPROMPoitnter, then increment EEPROMPointer
+}
+
+/*
+	Get the outputs stored in EEPROM
+
+	Parameters:
+	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
+	outputs: Pointer to block of memory to store inputs in
+	numOfOutputs: Number of outputs stored in EEPROM
+*/
+void Configurator::setOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
+		EEPROM.get(EEPROMPointer++, outputs[outputIndex]); // Retrieve each output and store in the array
+	}
 }
