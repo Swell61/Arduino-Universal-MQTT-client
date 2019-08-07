@@ -36,6 +36,7 @@ public:
 	};
 
 	byte getPinNum();
+	MQTTDevice::DEVICE_TYPE getDeviceType();
 	
 protected:
 	byte pinNum; // Pin number device is on

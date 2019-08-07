@@ -18,7 +18,8 @@ private:
 	
 
 public:
-
+	virtual byte getPinNum();
+	virtual MQTTDevice::DEVICE_TYPE getDeviceType();
 };
 
 #endif

@@ -3,6 +3,7 @@
 // 
 
 #include "Configurator.h"
+#include "Alarm.h"
 #include <EEPROM/src/EEPROM.h>
 
 /*
@@ -97,9 +98,14 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 	inputs: Pointer to block of memory to store inputs in
 	numOfInputs: Number of inputs stored in EEPROM
 */
-void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	// TODO: Read each input, check its type variable and cast to the correct type
-	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
+	Input* input = new Input;
+	for (byte inputIndex = 0; inputIndex < 2 * numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
+		EEPROM.get(EEPROMPointer++, *(input));
+		switch(deviceType) {
+			case MQTTDevice::DEVICE_TYPE::SWITCH:
+						}
 		EEPROM.get(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
 	}
 }
@@ -123,10 +129,17 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 	outputs: Pointer to block of memory to store inputs in
 	numOfOutputs: Number of outputs stored in EEPROM
 */
-void Configurator::readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	// TODO: Read each output, check its type variable and cast to the correct type
+	Output output;
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, *(outputs + outputIndex)); // Retrieve each output and store in the array
+		EEPROM.get(EEPROMPointer++, output); // Retrieve each output and store in the array
+
+		// Convert the output to correct type
+		switch (output.getDeviceType()) {
+		case MQTTDevice::DEVICE_TYPE::ALARM:
+			*(outputs + outputIndex) = (Alarm)output;
+		}
 	}
 }
 
