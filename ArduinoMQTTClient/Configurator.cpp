@@ -100,7 +100,7 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 
 	Parameters:
 	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
-	inputs: Pointer to block of memory to store inputs in
+	inputs: Pointer to block of memory that stores the inputs
 	numOfInputs: Number of inputs stored in EEPROM
 */
 void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
@@ -136,7 +136,7 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 
 	Parameters:
 	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
-	outputs: Pointer to block of memory to store inputs in
+	outputs: Pointer to block of memory that stores pointers to the outputs
 	numOfOutputs: Number of outputs stored in EEPROM
 */
 void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
@@ -221,12 +221,12 @@ void Configurator::writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 
 	Parameters:
 	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
-	inputs: Pointer to block of memory to store inputs in
+	inputs: Pointer to block of memory that stores pointers to the inputs
 	numOfInputs: Number of inputs stored in EEPROM
 */
 void Configurator::writeInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.update(EEPROMPointer++, (byte)(*(inputs) + inputIndex)->deviceType);
+		EEPROM.update(EEPROMPointer++, (byte)(*(inputs) + inputIndex)->deviceType); // Write the device type for identification when reading
 		EEPROM.put(EEPROMPointer, *(*(inputs) + inputIndex)); // Retrieve each input and store in the array
 		EEPROMPointer += sizeof(*(*(inputs)+inputIndex)); // Increment the pointer by the correct amount
 	}
@@ -248,12 +248,12 @@ void Configurator::writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 
 	Parameters:
 	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
-	outputs: Pointer to block of memory to store inputs in
+	outputs: Pointer to block of memory that stored pointers to the outputs
 	numOfOutputs: Number of outputs stored in EEPROM
 */
 void Configurator::writeOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.update(EEPROMPointer++, (byte)(*(outputs)+outputIndex)->deviceType);
+		EEPROM.update(EEPROMPointer++, (byte)(*(outputs)+outputIndex)->deviceType); // Write the device type for identification when reading
 		EEPROM.put(EEPROMPointer, *(*(outputs) + outputIndex)); // Retrieve each output and store in the array
 		EEPROMPointer += sizeof(*(*(outputs)+outputIndex)); // Increment the pointer by the correct amount
 	}
