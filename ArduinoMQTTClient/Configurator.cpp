@@ -3,7 +3,7 @@
 // 
 
 #include "Configurator.h"
-#include <EEPROM/src/EEPROM.h>
+#include <EEPROM.h>
 
 /*
 	Set all the values for the pointers passed from the configuration to the values read from EEPROM.
@@ -19,17 +19,17 @@ void Configurator::setup() {
 	// Read number of inputs
 	readNumOfInputs(EEPROMPointer, numOfInputs);
 	// Read inputs
-	inputs = (Input*)calloc(sizeof(Input), *(numOfInputs));
+	*(inputs) = (Input*)calloc(sizeof(Input), *(numOfInputs));
 	readInputs(EEPROMPointer, inputs, *(numOfInputs));
 	// Read num of outputs
 	readNumOfOutputs(EEPROMPointer, numOfOutputs);
 	// Read outputs
-	outputs = (Output*)calloc(sizeof(Output), *(numOfOutputs));
+	*(outputs) = (Output*)calloc(sizeof(Output), *(numOfOutputs));
 	readOutputs(EEPROMPointer, outputs, *(numOfOutputs));
 
 }
 
-Configurator::Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input* inputs, byte* numOfOutputs, Output* outputs) : MACAddress(MACAddress),
+Configurator::Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input** inputs, byte* numOfOutputs, Output** outputs) : MACAddress(MACAddress),
 arduinoIP(arduinoIP), MQTTBrokerIP(MQTTBrokerIP), numOfInputs(numOfInputs), inputs(inputs), numOfOutputs(numOfOutputs), outputs(outputs) {
 
 }
@@ -97,10 +97,10 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 	inputs: Pointer to block of memory to store inputs in
 	numOfInputs: Number of inputs stored in EEPROM
 */
-void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	// TODO: Read each input, check its type variable and cast to the correct type
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
+		EEPROM.get(EEPROMPointer++, **(inputs + inputIndex)); // Retrieve each input and store in the array
 	}
 }
 
@@ -123,10 +123,10 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 	outputs: Pointer to block of memory to store inputs in
 	numOfOutputs: Number of outputs stored in EEPROM
 */
-void Configurator::readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	// TODO: Read each output, check its type variable and cast to the correct type
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, *(outputs + outputIndex)); // Retrieve each output and store in the array
+		EEPROM.get(EEPROMPointer++, **(outputs + outputIndex)); // Retrieve each output and store in the array
 	}
 }
 
@@ -195,9 +195,9 @@ void Configurator::writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 	inputs: Pointer to block of memory to store inputs in
 	numOfInputs: Number of inputs stored in EEPROM
 */
-void Configurator::writeInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+void Configurator::writeInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.put(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
+		EEPROM.put(EEPROMPointer++, **(inputs + inputIndex)); // Retrieve each input and store in the array
 	}
 }
 
@@ -220,7 +220,7 @@ void Configurator::writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 	outputs: Pointer to block of memory to store inputs in
 	numOfOutputs: Number of outputs stored in EEPROM
 */
-void Configurator::writeOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+void Configurator::writeOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
 		EEPROM.put(EEPROMPointer++, *(outputs + numOfOutputs)); // Retrieve each output and store in the array
 	}

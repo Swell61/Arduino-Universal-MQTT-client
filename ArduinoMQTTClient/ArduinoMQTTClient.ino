@@ -5,6 +5,9 @@
 */
 
 // the setup function runs once when you press reset or power the board
+#include <EEPROM.h>
+#include <PubSubClient.h>
+#include <UIPEthernet.h>
 #include "Controller.h"
 
 void setup() {
