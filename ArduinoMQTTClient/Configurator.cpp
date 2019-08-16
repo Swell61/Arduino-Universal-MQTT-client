@@ -115,8 +115,8 @@ void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInpu
 			*(inputs) = new Switch();
 			break;
 		}
-		EEPROM.get(EEPROMPointer, **(inputs + inputIndex + 1)); // Retrieve each input and store in the array
-		EEPROMPointer += sizeof(**(inputs + inputIndex + 1)); // Increment the pointer by the correct value
+		EEPROM.get(EEPROMPointer, *(*(inputs) + inputIndex + 1)); // Retrieve each input and store in the array
+		EEPROMPointer += sizeof(*(*(inputs) + inputIndex + 1)); // Increment the pointer by the correct value
 	}
 }
 
@@ -154,8 +154,8 @@ void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfO
 			break;
 		}
 		
-		EEPROM.get(EEPROMPointer, **(outputs + outputIndex + 1)); // Retrieve each output and store in the array
-		EEPROMPointer += sizeof(**(outputs + outputIndex + 1)); // Increment the pointer by the correct amount
+		EEPROM.get(EEPROMPointer, *(*(outputs) + outputIndex + 1)); // Retrieve each output and store in the array
+		EEPROMPointer += sizeof(*(*(outputs) + outputIndex + 1)); // Increment the pointer by the correct amount
 	}
 }
 
@@ -225,8 +225,10 @@ void Configurator::writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 	numOfInputs: Number of inputs stored in EEPROM
 */
 void Configurator::writeInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
-	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.put(EEPROMPointer++, **(inputs + inputIndex)); // Retrieve each input and store in the array
+	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex += 2) { // Loop through all inputs stored in EEPROM
+		EEPROM.update(EEPROMPointer++, (byte)(*(inputs) + inputIndex)->deviceType);
+		EEPROM.put(EEPROMPointer, *(*(inputs) + inputIndex)); // Retrieve each input and store in the array
+		EEPROMPointer += sizeof(*(*(inputs)+inputIndex)); // Increment the pointer by the correct amount
 	}
 }
 
@@ -250,7 +252,9 @@ void Configurator::writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 	numOfOutputs: Number of outputs stored in EEPROM
 */
 void Configurator::writeOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
-	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.put(EEPROMPointer++, *(outputs + numOfOutputs)); // Retrieve each output and store in the array
+	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex += 2) { // Loop through all outputs stored in EEPROM
+		EEPROM.update(EEPROMPointer++, (byte)(*(outputs)+outputIndex)->deviceType);
+		EEPROM.put(EEPROMPointer, *(*(outputs) + outputIndex)); // Retrieve each output and store in the array
+		EEPROMPointer += sizeof(*(*(outputs)+outputIndex));
 	}
 }
