@@ -255,6 +255,6 @@ void Configurator::writeOutputs(byte EEPROMPointer, Output** outputs, byte numOf
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex += 2) { // Loop through all outputs stored in EEPROM
 		EEPROM.update(EEPROMPointer++, (byte)(*(outputs)+outputIndex)->deviceType);
 		EEPROM.put(EEPROMPointer, *(*(outputs) + outputIndex)); // Retrieve each output and store in the array
-		EEPROMPointer += sizeof(*(*(outputs)+outputIndex));
+		EEPROMPointer += sizeof(*(*(outputs)+outputIndex)); // Increment the pointer by the correct amount
 	}
 }
