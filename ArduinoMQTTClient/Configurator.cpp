@@ -3,6 +3,10 @@
 // 
 
 #include "Configurator.h"
+#include "Alarm.h"
+#include "Switch.h"
+#include "Contact.h"
+#include "Relay.h"
 #include <EEPROM.h>
 
 /*
@@ -91,6 +95,8 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 
 /*
 	Read the inputs stored in EEPROM
+	The data is stored with the input type stored infront of the input object. This way, the correct
+	case can be done when passing EEPROM.get the object to fill.
 
 	Parameters:
 	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
@@ -99,8 +105,18 @@ void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 */
 void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	// TODO: Read each input, check its type variable and cast to the correct type
-	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, **(inputs + inputIndex)); // Retrieve each input and store in the array
+	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex += 2) { // Loop through all inputs stored in EEPROM
+		switch ((Input::DEVICE_TYPE)EEPROM.read(EEPROMPointer++ + inputIndex)) // Read the input type and cast to Input type
+		{
+		case Input::DEVICE_TYPE::CONTACT:
+			*(inputs) = new Contact();
+			break;
+		case Input::DEVICE_TYPE::SWITCH:
+			*(inputs) = new Switch();
+			break;
+		}
+		EEPROM.get(EEPROMPointer, **(inputs + inputIndex + 1)); // Retrieve each input and store in the array
+		EEPROMPointer += sizeof(**(inputs + inputIndex + 1)); // Increment the pointer by the correct value
 	}
 }
 
@@ -125,8 +141,21 @@ void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 */
 void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	// TODO: Read each output, check its type variable and cast to the correct type
-	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, **(outputs + outputIndex)); // Retrieve each output and store in the array
+	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex += 2) { // Loop through all outputs stored in EEPROM
+		switch ((Output::DEVICE_TYPE)EEPROM.read(EEPROMPointer++))
+		{
+		case Output::DEVICE_TYPE::ALARM:
+			*(outputs) = new Alarm();
+			break;
+		case Output::DEVICE_TYPE::RELAY:
+			*(outputs) = new Relay();
+			break;
+		default:
+			break;
+		}
+		
+		EEPROM.get(EEPROMPointer, **(outputs + outputIndex + 1)); // Retrieve each output and store in the array
+		EEPROMPointer += sizeof(**(outputs + outputIndex + 1)); // Increment the pointer by the correct amount
 	}
 }
 
