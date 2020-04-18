@@ -36,10 +36,10 @@ public:
 	};
 
 	byte getPinNum();
-	
+	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
+
 protected:
 	byte pinNum; // Pin number device is on
-	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
 	char* deviceName;
 };
 

@@ -15,7 +15,7 @@
 	Purpose: Logic for a switch input
 */
 class Switch : public Input {
-
+	void sendMessage() override;
 };
 
 #endif

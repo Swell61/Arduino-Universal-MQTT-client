@@ -15,7 +15,7 @@
 	Purpose: Logic for contact based input (ie a contact for a window or door to detect whether it is open or not)
 */
 class Contact : public Input {
-
+	void sendMessage() override;
 };
 
 #endif

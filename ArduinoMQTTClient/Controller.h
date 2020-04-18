@@ -8,8 +8,8 @@
 #else
 	#include "WProgram.h"
 #endif
-#include <UIPEthernet/UIPEthernet.h>
-#include <pubsubclient/src/PubSubClient.h>
+#include <UIPEthernet.h>
+#include <PubSubClient.h>
 #include "Input.h"
 #include "Output.h"
 /*

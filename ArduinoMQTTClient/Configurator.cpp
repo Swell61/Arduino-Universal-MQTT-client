@@ -3,7 +3,11 @@
 // 
 
 #include "Configurator.h"
-#include <EEPROM/src/EEPROM.h>
+#include "Alarm.h"
+#include "Switch.h"
+#include "Contact.h"
+#include "Relay.h"
+#include <EEPROM.h>
 
 /*
 	Set all the values for the pointers passed from the configuration to the values read from EEPROM.
@@ -21,15 +25,15 @@ void Configurator::setup() {
 	// Read num of outputs
 	readNum(EEPROMPointer, numOfOutputs);
 	// Read inputs
-	inputs = (Input*)calloc(sizeof(Input), *(numOfInputs));
+	*(inputs) = (Input*)calloc(sizeof(Input), *(numOfInputs));
 	readInputs(EEPROMPointer, inputs, *(numOfInputs));
 	// Read outputs
-	outputs = (Output*)calloc(sizeof(Output), *(numOfOutputs));
+	*(outputs) = (Output*)calloc(sizeof(Output), *(numOfOutputs));
 	readOutputs(EEPROMPointer, outputs, *(numOfOutputs));
 
 }
 
-Configurator::Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input* inputs, byte* numOfOutputs, Output* outputs) : MACAddress(MACAddress),
+Configurator::Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input** inputs, byte* numOfOutputs, Output** outputs) : MACAddress(MACAddress),
 arduinoIP(arduinoIP), MQTTBrokerIP(MQTTBrokerIP), numOfInputs(numOfInputs), inputs(inputs), numOfOutputs(numOfOutputs), outputs(outputs) {
 
 }
@@ -77,16 +81,28 @@ void Configurator::readNum(byte EEPROMPointer, byte* num) {
 
 /*
 	Read the inputs stored in EEPROM
+	The data is stored with the input type stored infront of the input object. This way, the correct
+	case can be done when passing EEPROM.get the object to fill.
 
 	Parameters:
 	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
-	inputs: Pointer to block of memory to store inputs in
+	inputs: Pointer to block of memory that stores the inputs
 	numOfInputs: Number of inputs stored in EEPROM
 */
-void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	// TODO: Read each input, check its type variable and cast to the correct type
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
+		switch ((Input::DEVICE_TYPE)EEPROM.read(EEPROMPointer++)) // Read the input type and cast to Input type
+		{
+		case Input::DEVICE_TYPE::CONTACT:
+			*(inputs) = new Contact();
+			break;
+		case Input::DEVICE_TYPE::SWITCH:
+			*(inputs) = new Switch();
+			break;
+		}
+		EEPROM.get(EEPROMPointer, *(*(inputs) + inputIndex)); // Retrieve each input and store in the array
+		EEPROMPointer += sizeof(*(*(inputs) + inputIndex)); // Increment the pointer by the correct value
 	}
 }
 
@@ -95,13 +111,26 @@ void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInput
 
 	Parameters:
 	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
-	outputs: Pointer to block of memory to store inputs in
+	outputs: Pointer to block of memory that stores pointers to the outputs
 	numOfOutputs: Number of outputs stored in EEPROM
 */
-void Configurator::readOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	// TODO: Read each output, check its type variable and cast to the correct type
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.get(EEPROMPointer++, *(outputs + outputIndex)); // Retrieve each output and store in the array
+		switch ((Output::DEVICE_TYPE)EEPROM.read(EEPROMPointer++))
+		{
+		case Output::DEVICE_TYPE::ALARM:
+			*(outputs) = new Alarm();
+			break;
+		case Output::DEVICE_TYPE::RELAY:
+			*(outputs) = new Relay();
+			break;
+		default:
+			break;
+		}
+		
+		EEPROM.get(EEPROMPointer, *(*(outputs) + outputIndex)); // Retrieve each output and store in the array
+		EEPROMPointer += sizeof(*(*(outputs) + outputIndex)); // Increment the pointer by the correct amount
 	}
 }
 
@@ -153,12 +182,14 @@ void Configurator::writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
 
 	Parameters:
 	EEPROMPointer: Location of the first byte for inputs stored in EEPROM
-	inputs: Pointer to block of memory to store inputs in
+	inputs: Pointer to block of memory that stores pointers to the inputs
 	numOfInputs: Number of inputs stored in EEPROM
 */
-void Configurator::writeInputs(byte EEPROMPointer, Input* inputs, byte numOfInputs) {
+void Configurator::writeInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.put(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
+		EEPROM.update(EEPROMPointer++, (byte)(*(inputs) + inputIndex)->deviceType); // Write the device type for identification when reading
+		EEPROM.put(EEPROMPointer, *(*(inputs) + inputIndex)); // Retrieve each input and store in the array
+		EEPROMPointer += sizeof(*(*(inputs)+inputIndex)); // Increment the pointer by the correct amount
 	}
 }
 
@@ -178,11 +209,13 @@ void Configurator::writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
 
 	Parameters:
 	EEPROMPointer: Location of first byte for the outputs stored in EEPROM
-	outputs: Pointer to block of memory to store inputs in
+	outputs: Pointer to block of memory that stored pointers to the outputs
 	numOfOutputs: Number of outputs stored in EEPROM
 */
-void Configurator::writeOutputs(byte EEPROMPointer, Output* outputs, byte numOfOutputs) {
+void Configurator::writeOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		EEPROM.put(EEPROMPointer++, *(outputs + numOfOutputs)); // Retrieve each output and store in the array
+		EEPROM.update(EEPROMPointer++, (byte)(*(outputs)+outputIndex)->deviceType); // Write the device type for identification when reading
+		EEPROM.put(EEPROMPointer, *(*(outputs) + outputIndex)); // Retrieve each output and store in the array
+		EEPROMPointer += sizeof(*(*(outputs)+outputIndex)); // Increment the pointer by the correct amount
 	}
 }
