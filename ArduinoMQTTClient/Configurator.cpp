@@ -13,16 +13,16 @@ void Configurator::setup() {
 	// Read Arduino MAC address
 	readMACAddress(EEPROMPointer, MACAddress);
 	// Read Arduino IP Address
-	readArduinoIP(EEPROMPointer, arduinoIP);
+	readIP(EEPROMPointer, arduinoIP);
 	// Read MQTT broker IP address
-	readArduinoIP(EEPROMPointer, MQTTBrokerIP);
+	readIP(EEPROMPointer, MQTTBrokerIP);
 	// Read number of inputs
-	readNumOfInputs(EEPROMPointer, numOfInputs);
+	readNum(EEPROMPointer, numOfInputs);
+	// Read num of outputs
+	readNum(EEPROMPointer, numOfOutputs);
 	// Read inputs
 	inputs = (Input*)calloc(sizeof(Input), *(numOfInputs));
 	readInputs(EEPROMPointer, inputs, *(numOfInputs));
-	// Read num of outputs
-	readNumOfOutputs(EEPROMPointer, numOfOutputs);
 	// Read outputs
 	outputs = (Output*)calloc(sizeof(Output), *(numOfOutputs));
 	readOutputs(EEPROMPointer, outputs, *(numOfOutputs));
@@ -57,25 +57,11 @@ void Configurator::readMACAddress(byte EEPROMPointer, byte* MACAddress) {
 	EEPROMPointer: Location of first byte of 4 arduino IP address bytes
 	arduinoIP: Pointer to arduino IP address array held in configuration
 */
-void Configurator::readArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
-	*(arduinoIP) = EEPROM.read(EEPROMPointer++); // Read first byte of arduino IP address and increment pointer for next byte
-	*(arduinoIP + 1) = EEPROM.read(EEPROMPointer++); // Read second byte of arduino IP address and increment pointer for next byte
-	*(arduinoIP + 2) = EEPROM.read(EEPROMPointer++); // Read third byte of arduino IP address and increment pointer for next byte
-	*(arduinoIP + 3) = EEPROM.read(EEPROMPointer++); // Read fourth byte of arduino IP address and increment pointer for next item read
-}
-
-/*
-	Read all 4 bytes of the MQTT broker IP address and set the values in the array of the pointer
-
-	Parameters:
-	EEPROMPointer: Location of first byte of 4 MQTT broker IP address bytes
-	MQTTBrokerIP: Pointer to MQTT broker IP address array held in configuration
-*/
-void Configurator::readMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
-	*(MQTTBrokerIP) = EEPROM.read(EEPROMPointer++); // Read first byte of MQTT broker IP address and increment pointer for next byte
-	*(MQTTBrokerIP + 1) = EEPROM.read(EEPROMPointer++); // Read second byte of MQTT broker IP address and increment pointer for next byte
-	*(MQTTBrokerIP + 2) = EEPROM.read(EEPROMPointer++); // Read third byte of MQTT broker IP address and increment pointer for next byte
-	*(MQTTBrokerIP + 3) = EEPROM.read(EEPROMPointer++); // Read fourth byte of MQTT broker IP address and increment pointer for next item read
+void Configurator::readIP(byte EEPROMPointer, byte* IP) {
+	*(IP) = EEPROM.read(EEPROMPointer++); // Read first byte of arduino IP address and increment pointer for next byte
+	*(IP + 1) = EEPROM.read(EEPROMPointer++); // Read second byte of arduino IP address and increment pointer for next byte
+	*(IP + 2) = EEPROM.read(EEPROMPointer++); // Read third byte of arduino IP address and increment pointer for next byte
+	*(IP + 3) = EEPROM.read(EEPROMPointer++); // Read fourth byte of arduino IP address and increment pointer for next item read
 }
 
 /*
@@ -83,10 +69,10 @@ void Configurator::readMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
 
 	Parameters:
 	EEPROMPointer: Location of byte in EEPROM that stores number of input devices
-	numOfInputs: Pointer to the byte that stores number of inputs in configuration
+	num: Pointer to the byte that stores number of inputs or outputs in configuration
 */
-void Configurator::readNumOfInputs(byte EEPROMPointer, byte* numOfInputs) {
-	*(numOfInputs) = EEPROM.read(EEPROMPointer++); // Read the EEPROM at address EEPROMPointer, then increment EEPROMPointer
+void Configurator::readNum(byte EEPROMPointer, byte* num) {
+	*(num) = EEPROM.read(EEPROMPointer++); // Read the EEPROM at address EEPROMPointer, then increment EEPROMPointer
 }
 
 /*
@@ -102,17 +88,6 @@ void Configurator::readInputs(byte EEPROMPointer, Input* inputs, byte numOfInput
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
 		EEPROM.get(EEPROMPointer++, *(inputs + inputIndex)); // Retrieve each input and store in the array
 	}
-}
-
-/*
-	Read the number of outputs devices stored in EEPROM
-
-	Parameters:
-	EEPROMPointer: Location of byte in EEPROM that stores number of output devices
-	numOfInputs: Pointer to the byte that stores number of outputs in configuration
-*/
-void Configurator::readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
-	*(numOfOutputs) = EEPROM.read(EEPROMPointer++); // Read the EEPROM at address EEPROMPoitnter, then increment EEPROMPointer
 }
 
 /*
@@ -155,25 +130,11 @@ void Configurator::writeMACAddress(byte EEPROMPointer, byte* MACAddress) {
 	EEPROMPointer: Location of first byte of 4 arduino IP address bytes
 	arduinoIP: Pointer to arduino IP address array held in configuration
 */
-void Configurator::writeArduinoIP(byte EEPROMPointer, byte* arduinoIP) {
-	EEPROM.update(EEPROMPointer++, *(arduinoIP)); // Write first byte of arduino IP address and increment pointer for next byte
-	EEPROM.update(EEPROMPointer++, *(arduinoIP + 1)); // Write second byte of arduino IP address and increment pointer for next byte
-	EEPROM.update(EEPROMPointer++, *(arduinoIP + 2)); // Write third byte of arduino IP address and increment pointer for next byte
-	EEPROM.update(EEPROMPointer++, *(arduinoIP + 3)); // Write fourth byte of arduino IP address and increment pointer for next item write
-}
-
-/*
-	Write all 4 bytes of the MQTT broker IP address to EEPROM, if changed
-
-	Parameters:
-	EEPROMPointer: Location of first byte of 4 MQTT broker IP address bytes
-	MQTTBrokerIP: Pointer to MQTT broker IP address array held in configuration
-*/
-void Configurator::writeMQTTBrokerIP(byte EEPROMPointer, byte* MQTTBrokerIP) {
-	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP)); // Write first byte of MQTT broker IP address and increment pointer for next byte
-	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP + 1)); // Write second byte of MQTT broker IP address and increment pointer for next byte
-	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP + 2)); // Write third byte of MQTT broker IP address and increment pointer for next byte
-	EEPROM.update(EEPROMPointer++, *(MQTTBrokerIP + 3)); // Write fourth byte of MQTT broker IP address and increment pointer for next item Write
+void Configurator::writeIP(byte EEPROMPointer, byte* IP) {
+	EEPROM.update(EEPROMPointer++, *(IP)); // Write first byte of arduino IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(IP + 1)); // Write second byte of arduino IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(IP + 2)); // Write third byte of arduino IP address and increment pointer for next byte
+	EEPROM.update(EEPROMPointer++, *(IP + 3)); // Write fourth byte of arduino IP address and increment pointer for next item write
 }
 
 /*

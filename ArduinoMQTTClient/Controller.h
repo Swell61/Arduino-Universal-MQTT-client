@@ -20,8 +20,8 @@
 class Controller {
 
 private:
-	IPAddress arduinoIP = IPAddress(192, 168, 2, 211);
-	IPAddress MQTTBrokerIP = IPAddress(192, 168, 2, 1);
+	IPAddress arduinoIP = IPAddress(192, 168, 0, 170);
+	IPAddress MQTTBrokerIP = IPAddress(192, 168, 0, 1);
 	byte mac[6] = { 0xDE, 0xED, 0xBA, 0xFE, 0xFE, 0xED };
 	EthernetClient ethConnection;
 	PubSubClient MQTTClient = PubSubClient(ethConnection);
