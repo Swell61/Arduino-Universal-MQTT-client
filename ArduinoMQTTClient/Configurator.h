@@ -10,6 +10,7 @@
 #endif
 #include "Input.h"
 #include "Output.h"
+#include "MQTTDevice.h"
 /*
 	Author: Samuel Bailey
 	Date: 30/07/2019
@@ -31,16 +32,14 @@ private:
 	void readMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
 	void readIP(byte EEPROMPointer, byte* IP); // IPv4 always 4 bytes
 	void readNum(byte EEPROMPointer, byte* numO);
-	void readNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
 	void readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs);
 	void readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs);
 
 	void writeMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
 	void writeIP(byte EEPROMPointer, byte* IP); // IPv4 always 4 bytes
-	void writeNumOfInputs(byte EEPROMPointer, byte* numOfInputs);
+	void writeNum(byte EEPROMPointer, byte* numOfInputs);
 	void writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
-	void writeInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs);
-	void writeOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs);
+	void writeMQTTDevices(byte EEPROMPointer, MQTTDevice** devices, byte numOfDevices);
 };
 #endif
 

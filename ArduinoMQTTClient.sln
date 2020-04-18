@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArduinoMQTTClient", "ArduinoMQTTClient\ArduinoMQTTClient.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\..\..\Documents\Arduino\libraries\UIPEthernet\UIPEthernet-2.0.7.vcxitems*{3619062f-7c1d-4097-bb7f-3239ef914ddc}*SharedItemsImports = 9
-		..\..\..\Documents\Arduino\libraries\pubsubclient\pubsubclient-2.7.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
-		..\..\..\Documents\Arduino\libraries\UIPEthernet\UIPEthernet-2.0.7.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		..\..\..\Documents\Arduino\libraries\pubsubclient\pubsubclient-2.7.vcxitems*{e9e3b9e9-3ecf-4459-999a-d7a4ef219d0a}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
