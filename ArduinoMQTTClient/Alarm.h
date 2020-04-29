@@ -15,6 +15,7 @@
 	Purpose: Provides alarm specific functionality as an output MQTT device
 */
 class Alarm : public Output {
+	Alarm(const MQTTDevice& mqttDevice);
 	void action(MQTTDevice::ACTION action);
 };
 

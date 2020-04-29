@@ -16,6 +16,7 @@
 */
 class CurtainPull : public Output {
 public:
+	CurtainPull(const MQTTDevice& mqttDevice);
 	void action(MQTTDevice::ACTION action);
 
 };

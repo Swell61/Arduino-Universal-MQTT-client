@@ -34,13 +34,14 @@ public:
 		CAUTION,
 		WARNING,
 	};
-
+	
 	byte getPinNum();
 	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
+	MQTTDevice(const MQTTDevice &mqttDevice);
 
 protected:
 	byte pinNum; // Pin number device is on
-	char* deviceName;
+	char deviceName[8];
 };
 
 

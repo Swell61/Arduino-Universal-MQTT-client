@@ -15,6 +15,7 @@
 	Purpose: Logic for contact based input (ie a contact for a window or door to detect whether it is open or not)
 */
 class Contact : public Input {
+	Contact(const MQTTDevice& mqttDevice);
 	void sendMessage() override;
 };
 

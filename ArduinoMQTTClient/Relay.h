@@ -17,6 +17,7 @@
 class Relay : public Output {
 
 public:
+	Relay(const MQTTDevice& mqttDevice);
 	void action(MQTTDevice::ACTION action);
 };
 

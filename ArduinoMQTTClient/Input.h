@@ -17,6 +17,7 @@
 
 class Input : public MQTTDevice {
 public:
+	Input(const MQTTDevice& mqttDevice);
 	virtual void sendMessage() = 0;
 };
 

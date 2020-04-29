@@ -117,10 +117,13 @@ void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInpu
 void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
 	// TODO: Read each output, check its type variable and cast to the correct type
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		switch ((Output::DEVICE_TYPE)EEPROM.read(EEPROMPointer++))
+		MQTTDevice * deviceToRead;
+		EEPROM.get(EEPROMPointer, deviceToRead); // Retrieve each output and store in the array
+
+		switch (deviceToRead->deviceType)
 		{
 		case Output::DEVICE_TYPE::ALARM:
-			*(outputs) = new Alarm();
+			*(outputs + outputIndex) = new Alarm()
 			break;
 		case Output::DEVICE_TYPE::RELAY:
 			*(outputs) = new Relay();
@@ -129,7 +132,7 @@ void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfO
 			break;
 		}
 		
-		EEPROM.get(EEPROMPointer, *(*(outputs) + outputIndex)); // Retrieve each output and store in the array
+		
 		EEPROMPointer += sizeof(*(*(outputs) + outputIndex)); // Increment the pointer by the correct amount
 	}
 }
@@ -183,21 +186,10 @@ void Configurator::writeNum(byte EEPROMPointer, byte* num) {
 	MQTTDevices: Pointer to block of memory that stores pointers to the MQTT devices
 	numOfDevices: Number of inputs stored in EEPROM
 */
-void Configurator::writeMQTTDevices(byte EEPROMPointer, MQTTDevice** mqttDevice, byte numOfDevices) {
+void Configurator::writeMQTTDevices(byte EEPROMPointer, MQTTDevice** mqttDevices, byte numOfDevices) {
 	for (byte inputIndex = 0; inputIndex < numOfDevices; inputIndex++) { // Loop through all inputs stored in EEPROM
-		EEPROM.update(EEPROMPointer++, (byte)(*(mqttDevice) + inputIndex)->deviceType); // Write the device type for identification when reading
-		EEPROM.put(EEPROMPointer, *(*(mqttDevice) + inputIndex)); // Retrieve each input and store in the array
-		EEPROMPointer += sizeof(*(*(mqttDevice)+inputIndex)); // Increment the pointer by the correct amount
+		MQTTDevice deviceToWrite(*(*(mqttDevices)+inputIndex));
+		EEPROM.put(EEPROMPointer, deviceToWrite); // Retrieve each input and store in the array
+		EEPROMPointer += sizeof(*(*(mqttDevices)+inputIndex)); // Increment the pointer by the correct amount
 	}
-}
-
-/*
-	Write the number of outputs devices stored in EEPROM
-
-	Parameters:
-	EEPROMPointer: Location of byte in EEPROM that stores number of output devices
-	numOfInputs: Pointer to the byte that stores number of outputs in configuration
-*/
-void Configurator::writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs) {
-	EEPROM.update(EEPROMPointer++, *(numOfOutputs)); // Write the EEPROM at address EEPROMPoitnter, then increment EEPROMPointer
 }

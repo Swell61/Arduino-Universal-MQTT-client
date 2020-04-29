@@ -3,6 +3,7 @@
 // 
 
 #include "Alarm.h"
+Alarm::Alarm(const MQTTDevice& mqttDevice) : Output(mqttDevice) {}
 
 void Alarm::action(MQTTDevice::ACTION action) {
 	switch (action) {

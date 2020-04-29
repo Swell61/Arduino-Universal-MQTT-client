@@ -17,6 +17,7 @@
 class Output : public MQTTDevice {
 
 public:
+	Output(const MQTTDevice& mqttDevice);
 	char* getDeviceName();
 	virtual void action(MQTTDevice::ACTION action);
 };
