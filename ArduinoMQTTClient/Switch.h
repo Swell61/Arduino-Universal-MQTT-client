@@ -15,6 +15,7 @@
 	Purpose: Logic for a switch input
 */
 class Switch : public Input {
+public:
 	Switch(const MQTTDevice& mqttDevice);
 	void sendMessage() override;
 };

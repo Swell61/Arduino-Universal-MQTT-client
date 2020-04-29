@@ -15,6 +15,7 @@
 	Purpose: Logic for a temperature sensor input
 */
 class TempSensor : public Input {
+public:
 	TempSensor(const MQTTDevice& mqttDevice);
 	void sendMessage() override;
 };

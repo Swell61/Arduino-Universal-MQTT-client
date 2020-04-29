@@ -7,6 +7,8 @@
 #include "Switch.h"
 #include "Contact.h"
 #include "Relay.h"
+#include "TempSensor.h"
+#include "CurtainPull.h"
 #include <EEPROM.h>
 
 /*
@@ -92,17 +94,23 @@ void Configurator::readNum(byte EEPROMPointer, byte* num) {
 void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
 	// TODO: Read each input, check its type variable and cast to the correct type
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
-		switch ((Input::DEVICE_TYPE)EEPROM.read(EEPROMPointer++)) // Read the input type and cast to Input type
+		MQTTDevice* deviceToRead;
+		EEPROM.get(EEPROMPointer, deviceToRead); // Retrieve each output and store in the array
+
+		switch (deviceToRead->deviceType)
 		{
-		case Input::DEVICE_TYPE::CONTACT:
-			*(inputs) = new Contact();
+		case MQTTDevice::DEVICE_TYPE::CONTACT:
+			*(inputs + inputIndex) = new Contact(*deviceToRead);
 			break;
-		case Input::DEVICE_TYPE::SWITCH:
-			*(inputs) = new Switch();
+		case MQTTDevice::DEVICE_TYPE::SWITCH:
+			*(inputs + inputIndex) = new Switch(*deviceToRead);
+			break;
+		case MQTTDevice::DEVICE_TYPE::TEMP_SENSOR:
+			*(inputs + inputIndex) = new TempSensor(*deviceToRead);
+		default:
 			break;
 		}
-		EEPROM.get(EEPROMPointer, *(*(inputs) + inputIndex)); // Retrieve each input and store in the array
-		EEPROMPointer += sizeof(*(*(inputs) + inputIndex)); // Increment the pointer by the correct value
+		EEPROMPointer += sizeof(*(*(outputs)+inputIndex)); // Increment the pointer by the correct amount
 	}
 }
 
@@ -115,24 +123,23 @@ void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInpu
 	numOfOutputs: Number of outputs stored in EEPROM
 */
 void Configurator::readOutputs(byte EEPROMPointer, Output** outputs, byte numOfOutputs) {
-	// TODO: Read each output, check its type variable and cast to the correct type
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; outputIndex++) { // Loop through all outputs stored in EEPROM
-		MQTTDevice * deviceToRead;
+		MQTTDevice* deviceToRead;
 		EEPROM.get(EEPROMPointer, deviceToRead); // Retrieve each output and store in the array
 
 		switch (deviceToRead->deviceType)
 		{
-		case Output::DEVICE_TYPE::ALARM:
-			*(outputs + outputIndex) = new Alarm()
+		case MQTTDevice::DEVICE_TYPE::ALARM:
+			*(outputs + outputIndex) = new Alarm(*deviceToRead);
 			break;
-		case Output::DEVICE_TYPE::RELAY:
-			*(outputs) = new Relay();
+		case MQTTDevice::DEVICE_TYPE::RELAY:
+			*(outputs + outputIndex) = new Relay(*deviceToRead);
 			break;
+		case MQTTDevice::DEVICE_TYPE::CURTAIN_PULL:
+			*(outputs + outputIndex) = new CurtainPull(*deviceToRead);
 		default:
 			break;
 		}
-		
-		
 		EEPROMPointer += sizeof(*(*(outputs) + outputIndex)); // Increment the pointer by the correct amount
 	}
 }

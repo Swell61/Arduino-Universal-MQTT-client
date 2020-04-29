@@ -19,10 +19,15 @@ class MQTTDevice : public IMQTTDevice {
 
 public:
 	enum DEVICE_TYPE {
+		// Outputs
 		RELAY,
+		ALARM,
+		CURTAIN_PULL,
+
+		// Input
 		SWITCH,
 		CONTACT,
-		ALARM
+		TEMP_SENSOR,
 	};
 
 	enum ACTION {
