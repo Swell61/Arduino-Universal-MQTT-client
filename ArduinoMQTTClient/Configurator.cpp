@@ -92,7 +92,6 @@ void Configurator::readNum(byte EEPROMPointer, byte* num) {
 	numOfInputs: Number of inputs stored in EEPROM
 */
 void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInputs) {
-	// TODO: Read each input, check its type variable and cast to the correct type
 	for (byte inputIndex = 0; inputIndex < numOfInputs; inputIndex++) { // Loop through all inputs stored in EEPROM
 		MQTTDevice* deviceToRead;
 		EEPROM.get(EEPROMPointer, deviceToRead); // Retrieve each output and store in the array
