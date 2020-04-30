@@ -38,7 +38,6 @@ private:
 	void writeMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
 	void writeIP(byte EEPROMPointer, byte* IP); // IPv4 always 4 bytes
 	void writeNum(byte EEPROMPointer, byte* numOfInputs);
-	void writeNumOfOutputs(byte EEPROMPointer, byte* numOfOutputs);
 	void writeMQTTDevices(byte EEPROMPointer, MQTTDevice** devices, byte numOfDevices);
 };
 #endif
