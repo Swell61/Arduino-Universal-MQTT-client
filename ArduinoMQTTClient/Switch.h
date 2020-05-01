@@ -17,6 +17,7 @@
 class Switch : public Input {
 public:
 	Switch(const MQTTDevice& mqttDevice);
+	Switch(const char* deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
 	void sendMessage() override;
 };
 

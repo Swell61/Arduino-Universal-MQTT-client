@@ -3,7 +3,7 @@
 // 
 #include "Controller.h"
 void Controller::setup() {
-	Ethernet.begin(mac, arduinoIP); // Start the ethernet connection
+	Ethernet.begin(mac, controllerIP); // Start the ethernet connection
 	
 	// Subscribe to all output device topics
 	for (byte outputDevice = 0; outputDevice < numOfOutputs; ++outputDevice) {

@@ -11,15 +11,80 @@
 #include "CurtainPull.h"
 #include <EEPROM.h>
 
+
 /*
 	Set all the values for the pointers passed from the configuration to the values read from EEPROM.
 */
 void Configurator::setup() {
+	Serial.begin(9600);
+	if (EEPROM.read(0) == 85) {
+
+	}
+	else {
+
+	}
+
+
 	
+	Serial.end();
+}
+
+void Configurator::initialConfiguration(IPAddress &controllerIP, IPAddress &brokerIP, byte *controllerMAC) {
+	byte ipBuffer[4];
+
+	Serial.println(ENTER_CONTROLLER_IP);
+	Serial.readBytes(ipBuffer, 4);
+	controllerIP = IPAddress(ipBuffer);
+
+	Serial.println(ENTER_CONTROLLER_MAC);
+	Serial.readBytes(controllerMAC, 6);
+
+	Serial.println(ENTER_BROKER_IP);
+	Serial.readBytes(ipBuffer, 4);
+	brokerIP = IPAddress(ipBuffer);
+}
+
+void Configurator::addInput() {
+	char deviceName[8];
+	
+}
+
+void Configurator::addOutput() {
+
+}
+
+void Configurator::addDevice() {
+	char deviceName[8];
+	MQTTDevice::DEVICE_TYPE deviceType;
+	Serial.println(DEVICE_NAME);
+	Serial.readBytes(deviceName, 8);
+	
+	byte deviceTypeCode;
+	Serial.println(DEVICE_TYPE);
+	Serial.readBytes(&deviceTypeCode, 1);
+	deviceType = (MQTTDevice::DEVICE_TYPE)deviceTypeCode;
+
+	byte pinNum;
+	Serial.println(DEVICE_PIN);
+	Serial.readBytes(&pinNum, 1);
+
+	switch (deviceType) {
+	case MQTTDevice::DEVICE_TYPE::ALARM:
+	case MQTTDevice::DEVICE_TYPE::CURTAIN_PULL:
+	case MQTTDevice::DEVICE_TYPE::RELAY:
+	
+	case MQTTDevice::DEVICE_TYPE::CONTACT:
+	case MQTTDevice::DEVICE_TYPE::SWITCH:
+	case MQTTDevice::DEVICE_TYPE::TEMP_SENSOR:
+	
+	}
+}
+
+void Configurator::readMemory() {
 	// Read Arduino MAC address
 	readMACAddress(EEPROMPointer, MACAddress);
 	// Read Arduino IP Address
-	readIP(EEPROMPointer, arduinoIP);
+	readIP(EEPROMPointer, controllerIP);
 	// Read MQTT broker IP address
 	readIP(EEPROMPointer, MQTTBrokerIP);
 	// Read number of inputs
@@ -32,11 +97,12 @@ void Configurator::setup() {
 	// Read outputs
 	*(outputs) = (Output*)calloc(sizeof(Output), *(numOfOutputs));
 	readOutputs(EEPROMPointer, outputs, *(numOfOutputs));
-
 }
 
+
+
 Configurator::Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input** inputs, byte* numOfOutputs, Output** outputs) : MACAddress(MACAddress),
-arduinoIP(arduinoIP), MQTTBrokerIP(MQTTBrokerIP), numOfInputs(numOfInputs), inputs(inputs), numOfOutputs(numOfOutputs), outputs(outputs) {
+controllerIP(arduinoIP), MQTTBrokerIP(MQTTBrokerIP), numOfInputs(numOfInputs), inputs(inputs), numOfOutputs(numOfOutputs), outputs(outputs) {
 
 }
 
@@ -109,7 +175,8 @@ void Configurator::readInputs(byte EEPROMPointer, Input** inputs, byte numOfInpu
 		default:
 			break;
 		}
-		EEPROMPointer += sizeof(*(*(outputs)+inputIndex)); // Increment the pointer by the correct amount
+
+		EEPROMPointer += sizeof(MQTTDevice); // Increment the pointer by the correct amount
 	}
 }
 

@@ -5,6 +5,8 @@
 #include "Output.h"
 Output::Output(const MQTTDevice& mqttDevice) : MQTTDevice(mqttDevice) {}
 
-char* Output::getDeviceName() {
+Output::Output(const char* deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : MQTTDevice(deviceName, deviceType, pinNum) {}
+
+const char* Output::getDeviceName() {
 	return deviceName;
 }

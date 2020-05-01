@@ -11,6 +11,7 @@
 #include "Input.h"
 #include "Output.h"
 #include "MQTTDevice.h"
+#include <UIPEthernet.h>
 /*
 	Author: Samuel Bailey
 	Date: 30/07/2019
@@ -18,17 +19,26 @@
 */
 class Configurator {
 private:
-	int EEPROMPointer = 0;
+	int EEPROMPointer = 1; // First byte used to detect first configuration or not so start from second
 	byte* MACAddress; // Always 6 bytes
-	byte* arduinoIP; // IPv4 always 4 bytes
+	byte* controllerIP; // IPv4 always 4 bytes
 	byte* MQTTBrokerIP; // IPv4 always 4 bytes
 	byte* numOfInputs;
 	byte* numOfOutputs;
 	Input** inputs;
 	Output** outputs;
+
+	const char* ENTER_CONTROLLER_IP = "Ctrlr name:\0";
+	const char* ENTER_BROKER_IP = "Ctrlr IP:\0";
+	const char* ENTER_CONTROLLER_MAC = "Crtlr MAC:\0";
+	const char* DEVICE_TYPE = "Dev type:\0";
+	const char* DEVICE_NAME = "Dev name (8 chars):\0";
+	const char* DEVICE_PIN = "Dev pin:\0";
 	
 	Configurator(byte* MACAddress, byte* arduinoIP, byte* MQTTBrokerIP, byte* numOfInputs, Input** inputs, byte* numOfOutputs, Output** outputs);
 	void setup();
+	void readMemory();
+
 	void readMACAddress(byte EEPROMPointer, byte* MACAddress); //  Always 6 bytes
 	void readIP(byte EEPROMPointer, byte* IP); // IPv4 always 4 bytes
 	void readNum(byte EEPROMPointer, byte* numO);
@@ -39,6 +49,11 @@ private:
 	void writeIP(byte EEPROMPointer, byte* IP); // IPv4 always 4 bytes
 	void writeNum(byte EEPROMPointer, byte* numOfInputs);
 	void writeMQTTDevices(byte EEPROMPointer, MQTTDevice** devices, byte numOfDevices);
+
+	void initialConfiguration(IPAddress& controllerIP, IPAddress& brokerIP, byte* controllerMAC);
+	void addDevice();
+	void addInput();
+	void addOutput();
 };
 #endif
 

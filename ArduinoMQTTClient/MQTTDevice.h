@@ -18,7 +18,7 @@
 class MQTTDevice : public IMQTTDevice {
 
 public:
-	enum DEVICE_TYPE {
+	enum DEVICE_TYPE : byte {
 		// Outputs
 		RELAY,
 		ALARM,
@@ -43,10 +43,11 @@ public:
 	byte getPinNum();
 	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
 	MQTTDevice(const MQTTDevice &mqttDevice);
+	MQTTDevice(const char* deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
 
 protected:
-	byte pinNum; // Pin number device is on
-	char deviceName[8];
+	const byte pinNum; // Pin number device is on
+	const char* const deviceName;
 };
 
 

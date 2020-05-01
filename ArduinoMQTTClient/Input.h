@@ -18,6 +18,7 @@
 class Input : public MQTTDevice {
 public:
 	Input(const MQTTDevice& mqttDevice);
+	Input(const char* deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
 	virtual void sendMessage() = 0;
 };
 
