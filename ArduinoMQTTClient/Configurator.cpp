@@ -44,16 +44,8 @@ void Configurator::initialConfiguration(IPAddress &controllerIP, IPAddress &brok
 	brokerIP = IPAddress(ipBuffer);
 }
 
-void Configurator::addInput() {
-	char deviceName[8];
+void Configurator::addDevice(Output** outputs, byte* numOfOutputs, Input** inputs, byte* numOfInputs) {
 	
-}
-
-void Configurator::addOutput() {
-
-}
-
-void Configurator::addDevice() {
 	char deviceName[8];
 	MQTTDevice::DEVICE_TYPE deviceType;
 	Serial.println(DEVICE_NAME);
@@ -70,12 +62,24 @@ void Configurator::addDevice() {
 
 	switch (deviceType) {
 	case MQTTDevice::DEVICE_TYPE::ALARM:
+		*(outputs + *numOfOutputs) = new Alarm(deviceName, pinNum);
+		++*numOfOutputs;
 	case MQTTDevice::DEVICE_TYPE::CURTAIN_PULL:
+		*(outputs + *numOfOutputs) = new CurtainPull(deviceName, pinNum);
+		++* numOfOutputs;
 	case MQTTDevice::DEVICE_TYPE::RELAY:
-	
+		*(outputs + *numOfOutputs) = new Relay(deviceName, pinNum);
+		++* numOfOutputs;
+
 	case MQTTDevice::DEVICE_TYPE::CONTACT:
+		*(inputs + *numOfInputs) = new Contact(deviceName, pinNum);
+		++* numOfInputs;
 	case MQTTDevice::DEVICE_TYPE::SWITCH:
+		*(inputs + *numOfInputs) = new Switch(deviceName, pinNum);
+		++* numOfInputs;
 	case MQTTDevice::DEVICE_TYPE::TEMP_SENSOR:
+		*(inputs + *numOfInputs) = new TempSensor(deviceName, pinNum);
+		++* numOfInputs;
 	
 	}
 }

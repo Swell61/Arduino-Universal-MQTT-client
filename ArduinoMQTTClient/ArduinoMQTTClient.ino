@@ -5,16 +5,24 @@
 */
 
 // the setup function runs once when you press reset or power the board
+#include <SPI.h>
 #include <EEPROM.h>
 #include <PubSubClient.h>
 #include <UIPEthernet.h>
 #include "Controller.h"
 
-void setup() {
 
+void setup() {
+	Serial.begin(9600);
+	Serial.println("Setting up");
+
+	Controller controller = Controller();
+	controller.setup();
+	controller.run();
 }
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-  
+	
+	
 }

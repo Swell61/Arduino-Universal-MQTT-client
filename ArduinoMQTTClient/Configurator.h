@@ -51,9 +51,7 @@ private:
 	void writeMQTTDevices(byte EEPROMPointer, MQTTDevice** devices, byte numOfDevices);
 
 	void initialConfiguration(IPAddress& controllerIP, IPAddress& brokerIP, byte* controllerMAC);
-	void addDevice();
-	void addInput();
-	void addOutput();
+	void addDevice(Output** outputs, byte* numOfOutputs, Input** inputs, byte* numOfInputs);
 };
 #endif
 

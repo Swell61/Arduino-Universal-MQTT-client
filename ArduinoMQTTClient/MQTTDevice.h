@@ -14,7 +14,7 @@
 	Date: 30/07/2019
 	Purpose: Class represents any MQTT device hosted by this system
 */
-
+struct actionStringToType;
 class MQTTDevice : public IMQTTDevice {
 
 public:
@@ -30,7 +30,7 @@ public:
 		TEMP_SENSOR,
 	};
 
-	enum ACTION {
+	enum ACTION : byte {
 		OFF,
 		ON,
 		OPEN,
@@ -39,17 +39,25 @@ public:
 		CAUTION,
 		WARNING,
 	};
+
+	const static actionStringToType actionStringsToTypes[7];
 	
-	byte getPinNum();
+	const byte getPinNum() { return pinNum; }
+	char *const getDeviceName() { return deviceName; }
 	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
 	MQTTDevice(const MQTTDevice &mqttDevice);
-	MQTTDevice(const char* deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
+	MQTTDevice(char* const  deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
 
 protected:
 	const byte pinNum; // Pin number device is on
-	const char* const deviceName;
+	char* const deviceName;
 };
 
+struct actionStringToType {
+	actionStringToType(const char* string, MQTTDevice::ACTION type) : string(string), type(type) {}
+	const char* string;
+	MQTTDevice::ACTION type;
+};
 
 #endif
 

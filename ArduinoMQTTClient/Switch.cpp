@@ -5,7 +5,7 @@
 #include "Switch.h"
 Switch::Switch(const MQTTDevice& mqttDevice) : Input(mqttDevice) {}
 
-Switch::Switch(const char* deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : Input(deviceName, deviceType, pinNum) {}
+Switch::Switch(const char* deviceName, const byte pinNum) : Input(deviceName, MQTTDevice::DEVICE_TYPE::SWITCH, pinNum) {}
 
 void Switch::sendMessage() {}
 
