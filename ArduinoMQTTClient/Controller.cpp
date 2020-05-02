@@ -5,9 +5,11 @@
 #include "Relay.h"
 #include <../UIPEthernet/UIPEthernet.h>
 
+const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
+char topicBuffer[15];
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
-	Output* output = new Relay("cmnd/ard1/test", 10);
+	Output* output = new Relay(relay1Topic, 10);
 	outputDevices[0] = output;
 	++numOfOutputs;
 
@@ -36,12 +38,11 @@ void Controller::setupMQTT() {
 }
 
 void Controller::subscribeToOutputs() {
+	Serial.println(F("start read"));
 	// Subscribe to all output device topics
-	
 	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
-		//MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getDeviceMQTTTopic());
-		Serial.print("Subscribed to: ");
-		Serial.println(outputDevices[outputDeviceIndex]->getDeviceMQTTTopic());
+		strcpy_P(topicBuffer, outputDevices[outputDeviceIndex]->getDeviceMQTTTopic());
+		MQTTClient.subscribe(topicBuffer);
 	}
 }
 

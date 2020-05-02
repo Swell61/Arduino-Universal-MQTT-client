@@ -9,7 +9,7 @@
 #include <../EnableInterrupt/EnableInterrupt.h>
 Input::Input(const MQTTDevice& mqttDevice) : MQTTDevice(mqttDevice) {}
 
-Input::Input(char const *const deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : MQTTDevice(deviceMQTTTopic, deviceType, pinNum) {
+Input::Input(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : MQTTDevice(deviceMQTTTopic, deviceType, pinNum) {
 }
 
 void Input::interruptHandler() {

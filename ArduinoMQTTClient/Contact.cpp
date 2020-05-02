@@ -5,7 +5,7 @@
 #include "Contact.h"
 Contact::Contact(const MQTTDevice& mqttDevice) : Input(mqttDevice) {}
 
-Contact::Contact(char const *const deviceMQTTTopic, const byte pinNum) : Input(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::CONTACT, pinNum) {
+Contact::Contact(const char* deviceMQTTTopic, const byte pinNum) : Input(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::CONTACT, pinNum) {
 	inputs[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 }
 

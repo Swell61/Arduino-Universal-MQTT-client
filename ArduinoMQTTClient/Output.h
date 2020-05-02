@@ -18,7 +18,7 @@ class Output : public MQTTDevice {
 
 public:
 	Output(const MQTTDevice& mqttDevice);
-	Output(char const *const deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
+	Output(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
 	virtual void action(MQTTDevice::ACTION action) = 0;
 };
 

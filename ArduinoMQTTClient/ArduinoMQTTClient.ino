@@ -13,11 +13,8 @@
 #include "Controller.h"
 #define DEBUG
 void setup() {
-#ifdef DEBUG
 	Serial.begin(9600);
-	Serial.println("Setting up");
-#endif
-
+	Serial.println(F("starting"));
 	Controller controller = Controller();
 	controller.run();
 }
