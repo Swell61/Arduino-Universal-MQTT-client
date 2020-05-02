@@ -41,7 +41,7 @@ void Controller::subscribeToOutputs() {
 	Serial.println(F("start read"));
 	// Subscribe to all output device topics
 	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
-		strcpy_P(topicBuffer, outputDevices[outputDeviceIndex]->getDeviceMQTTTopic());
+		strncpy_P(topicBuffer, outputDevices[outputDeviceIndex]->getDeviceMQTTTopic(), sizeof(topicBuffer));
 		MQTTClient.subscribe(topicBuffer);
 	}
 }
