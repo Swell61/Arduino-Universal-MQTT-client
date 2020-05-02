@@ -18,7 +18,7 @@ class TempSensor : public Input {
 public:
 	TempSensor(const MQTTDevice& mqttDevice);
 	TempSensor(char const *const deviceName, const byte pinNum);
-	void sendMessage() override;
+	void handleInput() override;
 };
 
 #endif
