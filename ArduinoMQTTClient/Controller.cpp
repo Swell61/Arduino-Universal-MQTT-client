@@ -5,8 +5,14 @@
 #include "Relay.h"
 #include <../UIPEthernet/UIPEthernet.h>
 
+/* Store ALL topic strings with PROGMEM to keep them out of SRAM.
+ * Ensure topicBuffer is large enough to accommodate the largest topic string.
+ * The logic behind this is you only ever read one topic string at once, so keep
+ * them all in PROGMEM and read them into the topicBuffer when they are needed. Memory
+ * usage is more important than speed ;). */
 const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
 char topicBuffer[15];
+
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
 	Output* output = new Relay(relay1Topic, 10);
@@ -33,7 +39,7 @@ void Controller::setupMQTT() {
 		MQTTClient.connect(controllerName);
 		delay(2000);
 	}
-		subscribeToOutputs();
+	subscribeToOutputs();
 	
 }
 
