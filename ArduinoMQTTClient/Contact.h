@@ -18,7 +18,7 @@ class Contact : public Input {
 public:
 	Contact(const MQTTDevice& mqttDevice);
 	Contact(char const * const deviceName, const byte pinNum);
-	void handleInput() override;
+	void handleInput(PubSubClient mqttClient) override;
 
 };
 

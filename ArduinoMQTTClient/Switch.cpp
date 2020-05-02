@@ -9,5 +9,5 @@ Switch::Switch(char const *const deviceName, const byte pinNum) : Input(deviceNa
 	inputs[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 }
 
-void Switch::handleInput() {}
+void Switch::handleInput(PubSubClient mqttClient) {}
 

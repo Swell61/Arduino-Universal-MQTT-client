@@ -9,4 +9,14 @@ Contact::Contact(char const *const deviceName, const byte pinNum) : Input(device
 	inputs[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 }
 
-void Contact::handleInput() {}
+void Contact::handleInput(PubSubClient mqtttClient) {
+	// If the input changed since last check
+	if (inputChange.pinChanged) {
+		switch (inputChange.pinChangedTo) {
+		case (HIGH):
+
+		case (LOW):
+			break;
+		}
+	}
+}

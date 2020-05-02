@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 #include "MQTTDevice.h"
-
+#include <../pubsubclient/src/PubSubClient.h>
 
 /*
 	Author: Samuel Bailey
@@ -26,10 +26,13 @@ class Input : public MQTTDevice {
 public:
 	Input(const MQTTDevice& mqttDevice);
 	Input(char const *const deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
-	virtual void sendMessage() = 0;
+	virtual void handleInput(PubSubClient mqttClient) = 0;
+	
+	
+	static void interruptHandler();
+protected:
 	volatile inputChange inputChange = {0, 0};
 	static Input* inputs[19];
-	static void interruptHandler();
 };
 
 

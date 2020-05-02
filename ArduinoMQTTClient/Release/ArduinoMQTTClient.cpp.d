@@ -45,4 +45,5 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\ArduinoMQTTClient.cpp.o: \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Controller.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Input.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\MQTTDevice.h \
+ e:\users\samuel\documents\arduino\libraries\pubsubclient\src\pubsubclient.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Output.h
