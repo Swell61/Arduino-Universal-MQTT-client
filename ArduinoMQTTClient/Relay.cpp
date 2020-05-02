@@ -5,7 +5,7 @@
 #include "Relay.h"
 Relay::Relay(const MQTTDevice& mqttDevice) : Output(mqttDevice) {}
 
-Relay::Relay(const char* deviceName, const byte pinNum) : Output(deviceName, MQTTDevice::DEVICE_TYPE::RELAY, pinNum) {}
+Relay::Relay(char const *const deviceName, const byte pinNum) : Output(deviceName, MQTTDevice::DEVICE_TYPE::RELAY, pinNum) {}
 
 void Relay::action(MQTTDevice::ACTION action) {
 	switch (action) {

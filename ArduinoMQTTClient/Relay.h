@@ -18,7 +18,7 @@ class Relay : public Output {
 
 public:
 	Relay(const MQTTDevice& mqttDevice);
-	Relay(const char* deviceName, const byte pinNum);
+	Relay(char const *const deviceName, const byte pinNum);
 	void action(MQTTDevice::ACTION action);
 };
 

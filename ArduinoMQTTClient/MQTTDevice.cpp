@@ -9,5 +9,5 @@ const actionStringToType MQTTDevice::actionStringsToTypes[7] = { {"off", MQTTDev
 
 MQTTDevice::MQTTDevice(const MQTTDevice& mqttDevice) : deviceName(mqttDevice.deviceName), pinNum(mqttDevice.pinNum), deviceType(mqttDevice.deviceType) { }
 
-MQTTDevice::MQTTDevice(char* const deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : deviceName(deviceName), pinNum(pinNum), deviceType(deviceType) { }
+MQTTDevice::MQTTDevice(char const *const deviceName, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : deviceName(deviceName), pinNum(pinNum), deviceType(deviceType) { }
 

@@ -5,7 +5,7 @@
 #include "Alarm.h"
 Alarm::Alarm(const MQTTDevice& mqttDevice) : Output(mqttDevice) {}
 
-Alarm::Alarm(const char* deviceName, const byte pinNum) : Output(deviceName, MQTTDevice::DEVICE_TYPE::ALARM, pinNum) {}
+Alarm::Alarm(char const *const deviceName, const byte pinNum) : Output(deviceName, MQTTDevice::DEVICE_TYPE::ALARM, pinNum) {}
 
 void Alarm::action(MQTTDevice::ACTION action) {
 	switch (action) {

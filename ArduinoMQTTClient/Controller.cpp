@@ -48,7 +48,7 @@ void Controller::run() {
 }
 
 void Controller::callback(char* topic, byte* payload, unsigned int length) {
-	getOutputDeviceFromTopic(topic)->action(getActionFromPayload((char*)payload, length));
+	getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length));
 }
 
 Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
