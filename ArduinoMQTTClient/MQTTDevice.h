@@ -8,17 +8,16 @@
 #else
 	#include "WProgram.h"
 #endif
-#include "IMQTTDevice.h"
 /*
 	Author: Samuel Bailey
 	Date: 30/07/2019
 	Purpose: Class represents any MQTT device hosted by this system
 */
 struct actionStringToType;
-class MQTTDevice : public IMQTTDevice {
+class MQTTDevice {
 
 public:
-	enum DEVICE_TYPE : byte {
+	PROGMEM enum DEVICE_TYPE : byte {
 		// Outputs
 		RELAY,
 		ALARM,
@@ -30,7 +29,7 @@ public:
 		TEMP_SENSOR,
 	};
 
-	enum ACTION : byte {
+	PROGMEM enum ACTION : byte {
 		OFF,
 		ON,
 		OPEN,

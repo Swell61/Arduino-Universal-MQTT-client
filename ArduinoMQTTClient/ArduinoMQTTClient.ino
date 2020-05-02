@@ -10,11 +10,12 @@
 #include <PubSubClient.h>
 #include <UIPEthernet.h>
 #include "Controller.h"
-
-
+#define DEBUG
 void setup() {
+#ifdef DEBUG
 	Serial.begin(9600);
 	Serial.println("Setting up");
+#endif
 
 	Controller controller = Controller();
 	controller.setup();

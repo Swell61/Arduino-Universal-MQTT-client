@@ -20,22 +20,22 @@
 class Controller {
 
 private:
-	IPAddress *controllerIP;
-	IPAddress *MQTTBrokerIP;
-	byte *mac;
+	const IPAddress controllerIP = IPAddress(192, 168, 0, 170);
+	const IPAddress MQTTBrokerIP = IPAddress(192, 168, 0, 57);
+	PROGMEM const byte mac[6] = { 0x00,0x01,0x02,0x03,0x04,0x05 };
 	EthernetClient ethConnection;
 	PubSubClient MQTTClient;
-	char const controllerName[6] = "MQTT1";
+	PROGMEM char const controllerName[6] = "MQTT1";
 
-	Input** inputDevices;
+	Input* inputDevices[1];
 	byte numOfInputs = 0;
-	Output** outputDevices;
+	Output* outputDevices[1];
 	byte numOfOutputs = 0;
 	static Controller* callbackControllerPointer;
 	static void callbackHandler(char* topic, byte* payload, unsigned int length);
 	void callback(char* topic, byte* payload, unsigned int length);
 	Output* const getOutputDeviceFromTopic(char* const topic);
-	MQTTDevice::ACTION const getActionFromPayload(char *const payload, unsigned int length);
+	MQTTDevice::ACTION const getActionFromPayload(byte *const payload, unsigned int length);
 public:
 	Controller();
 	void setup();

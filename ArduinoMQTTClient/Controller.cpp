@@ -6,11 +6,6 @@
 
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
-	controllerIP = new IPAddress(192, 168, 0, 170);
-	mac = new byte[6]{ 0x00,0x01,0x02,0x03,0x04,0x05 }; // Randomly generated
-	MQTTBrokerIP = new IPAddress(192, 168, 0, 57);
-
-
 	Output* output = new Relay("relay", 10);
 	outputDevices[0] = output;
 	++numOfOutputs;
@@ -26,7 +21,7 @@ void Controller::setup() {
 	Serial.println("Started eth");
 	Serial.println(Ethernet.localIP());
 	MQTTClient = PubSubClient(ethConnection);
-	MQTTClient.setServer(*MQTTBrokerIP, 1883);
+	MQTTClient.setServer(MQTTBrokerIP, 1883);
 	MQTTClient.setCallback(callbackHandler);
 	Serial.println("Conn MQTT");
 	Serial.println(MQTTClient.connect("arduino") ? "conn" : "no conn");
@@ -44,9 +39,6 @@ void Controller::subscribeToOutputs() {
 		strcat(topic, outputDevices[outputDevice]->getDeviceName()); // Third level output device name topic
 		MQTTClient.subscribe(topic);
 	}
-	
-	MQTTClient.publish("cmnd/sonoff/POWER", "hi");
-	MQTTClient.publish("cmnd/sonoff/POWER", "hi");
 }
 
 void Controller::run() {
@@ -56,14 +48,6 @@ void Controller::run() {
 }
 
 void Controller::callback(char* topic, byte* payload, unsigned int length) {
-	Serial.print("Message arrived [");
-	Serial.print(topic);
-	Serial.print("] ");
-	for (int i = 0; i < length; i++) {
-		Serial.print((char)payload[i]);
-	}
-	Serial.println();
-
 	getOutputDeviceFromTopic(topic)->action(getActionFromPayload((char*)payload, length));
 }
 
@@ -75,17 +59,31 @@ Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 			return outputDevices[outputIndex];
 		}
 	}
+	return NULL;
 }
 
-MQTTDevice::ACTION const Controller::getActionFromPayload(char* const payload, unsigned int length) {
+MQTTDevice::ACTION const Controller::getActionFromPayload(byte* const payload, unsigned int length) {
 	for (int actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
-		if (strncmp(payload, MQTTDevice::actionStringsToTypes[actionTypeIndex].string, length)) {
+		Serial.print("current iter: ");
+		Serial.print(MQTTDevice::actionStringsToTypes[actionTypeIndex].string);
+		if (memcmp(payload, MQTTDevice::actionStringsToTypes[actionTypeIndex].string, length) == 0) {
 			return MQTTDevice::actionStringsToTypes[actionTypeIndex].type;
 		}
 	}
+	return MQTTDevice::ACTION::INFO;
 }
 
 void Controller::callbackHandler(char* topic, byte* payload, unsigned int length) {
+	Serial.print("Message arrived [");
+	Serial.print(topic);
+	Serial.print("] ");
+	Serial.print("len: ");
+	Serial.print(length);
+	Serial.print(" ");
+	for (int i = 0; i < length; i++) {
+		Serial.print((char)payload[i]);
+	}
+	Serial.println();
 	Controller::callbackControllerPointer->callback(topic, payload, length);
 }
 
