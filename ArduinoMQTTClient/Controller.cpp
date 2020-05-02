@@ -3,6 +3,7 @@
 // 
 #include "Controller.h"
 #include "Relay.h"
+#include "Contact.h"
 #include <../UIPEthernet/UIPEthernet.h>
 
 /* Store ALL topic strings with PROGMEM to keep them out of SRAM.
@@ -11,13 +12,17 @@
  * them all in PROGMEM and read them into the topicBuffer when they are needed. Memory
  * usage is more important than speed ;). */
 const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
-char topicBuffer[15];
+const char PROGMEM contact1Topic[]{ "out/ard1/cont" };
+char Controller::topicBuffer[15] = { "\0" };
 
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
-	Output* output = new Relay(relay1Topic, 10);
+	Output* output = new Relay(relay1Topic, 8);
 	outputDevices[0] = output;
 	++numOfOutputs;
+
+	inputDevices[0] = new Contact(contact1Topic, 6);
+	++numOfInputs;
 
 	if (Controller::callbackControllerPointer == NULL) {
 		Controller::callbackControllerPointer = this;
@@ -52,16 +57,25 @@ void Controller::subscribeToOutputs() {
 	}
 }
 
+void Controller::processInputs() {
+	for (byte inputIndex = 0; inputIndex < numOfInputs; ++numOfInputs) {
+		inputDevices[inputIndex]->handleInput(MQTTClient);
+	}
+}
+
 void Controller::run() {
 	while (true) {
 		if (Ethernet.linkStatus() == LinkOFF || Ethernet.linkStatus() == Unknown) {
+			Serial.println(F("eth"));
 			setup();
 		}
 		else if (!MQTTClient.connected()) {
+			Serial.println(F("MQTT"));
 			MQTTClient.connected();
 			setupMQTT();
 		}
 		else {
+			processInputs();
 			MQTTClient.loop();
 			Ethernet.maintain();
 		}
@@ -75,7 +89,7 @@ void Controller::callback(char* topic, byte* payload, unsigned int length) {
 Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 	char* const deviceMQTTTopic = strchr(topic, '/');
 
-	for (int outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
+	for (byte outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
 		if (strcmp(outputDevices[outputIndex]->getDeviceMQTTTopic(), deviceMQTTTopic)) {
 			return outputDevices[outputIndex];
 		}
@@ -84,7 +98,7 @@ Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 }
 
 MQTTDevice::ACTION const Controller::getActionFromPayload(byte* const payload, unsigned int length) {
-	for (int actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
+	for (byte actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
 		Serial.print("current iter: ");
 		Serial.print(MQTTDevice::actionStringsToTypes[actionTypeIndex].string);
 		if (memcmp(payload, MQTTDevice::actionStringsToTypes[actionTypeIndex].string, length) == 0) {

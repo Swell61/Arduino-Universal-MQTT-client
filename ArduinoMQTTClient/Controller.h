@@ -32,7 +32,6 @@ private:
 	Output* outputDevices[5];
 	byte numOfOutputs = 0;
 
-
 	static Controller* callbackControllerPointer;
 	static void callbackHandler(char* topic, byte* payload, unsigned int length);
 	void callback(char* topic, byte* payload, unsigned int length);
@@ -40,11 +39,13 @@ private:
 	MQTTDevice::ACTION const getActionFromPayload(byte *const payload, unsigned int length);
 	void setupMQTT();
 	void setup();
+	void processInputs();
 
 public:
 	Controller();
 	void subscribeToOutputs();
 	void run();
+	static char topicBuffer[15];
 };
 #endif
 

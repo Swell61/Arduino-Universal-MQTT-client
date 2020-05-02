@@ -45,4 +45,5 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Controller.cpp.o: \
  e:\users\samuel\documents\arduino\libraries\pubsubclient\src\pubsubclient.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Output.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Relay.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Contact.h \
  e:\users\samuel\documents\arduino\libraries\uipethernet\uipethernet.h

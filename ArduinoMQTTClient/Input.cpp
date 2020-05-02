@@ -4,9 +4,9 @@
 
 #include "Input.h"
 #define EI_ARDUINO_INTERRUPTED_PIN
-#define EI_NOTEXTERNAL  
-#define EI_NOTPORTB 
 #include <../EnableInterrupt/EnableInterrupt.h>
+Input* Input::inputs[19] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+
 Input::Input(const MQTTDevice& mqttDevice) : MQTTDevice(mqttDevice) {}
 
 Input::Input(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : MQTTDevice(deviceMQTTTopic, deviceType, pinNum) {
