@@ -127,7 +127,6 @@
     <ClInclude Include="MQTTDevice.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="Relay.h" />
-    <ClInclude Include="Switch.h" />
     <ClInclude Include="TempSensor.h" />
     <ClInclude Include="__vm\.ArduinoMQTTClient.vsarduino.h" />
   </ItemGroup>
@@ -140,7 +139,6 @@
     <ClCompile Include="MQTTDevice.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Relay.cpp" />
-    <ClCompile Include="Switch.cpp" />
     <ClCompile Include="TempSensor.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
