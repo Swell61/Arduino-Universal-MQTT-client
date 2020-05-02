@@ -19,7 +19,6 @@ void setup() {
 #endif
 
 	Controller controller = Controller();
-	controller.setup();
 	controller.run();
 }
 

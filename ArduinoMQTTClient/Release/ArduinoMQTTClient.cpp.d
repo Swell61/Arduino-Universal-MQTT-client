@@ -30,13 +30,11 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\ArduinoMQTTClient.cpp.o: \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/enc28j60.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/uipopt.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/Dhcp.h \
- E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/UIPUdp.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Print.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Udp.h \
- E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/mempool.h \
- E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/uip.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/UIPClient.h \
+ J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Print.h \
+ E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/mempool.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/logging.h \
+ E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/uip.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/UIPServer.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Server.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/uip_timer.h \

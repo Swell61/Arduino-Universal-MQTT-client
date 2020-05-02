@@ -17,7 +17,7 @@
 class Alarm : public Output {
 public:
 	Alarm(const MQTTDevice& mqttDevice);
-	Alarm(char const *const deviceName, const byte pinNum);
+	Alarm(char const *const deviceMQTTTopic, const byte pinNum);
 	void action(MQTTDevice::ACTION action);
 };
 

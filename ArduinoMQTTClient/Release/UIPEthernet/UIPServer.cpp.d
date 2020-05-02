@@ -24,16 +24,13 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\UIPEthernet\UIPServer.cpp.o: \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\SPI\src/SPI.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/uipopt.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\Dhcp.h \
- E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\UIPUdp.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Print.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Udp.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
- E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/mempool.h \
- E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/uip.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\UIPClient.h \
+ J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Print.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Client.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/IPAddress.h \
+ E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/mempool.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/logging.h \
+ E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/uip.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\UIPServer.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Server.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet\utility/uip_timer.h \
