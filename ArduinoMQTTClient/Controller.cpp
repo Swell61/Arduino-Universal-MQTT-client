@@ -24,7 +24,7 @@ void Controller::setup() {
 	MQTTClient.setServer(MQTTBrokerIP, 1883);
 	MQTTClient.setCallback(callbackHandler);
 	Serial.println("Conn MQTT");
-	Serial.println(MQTTClient.connect("arduino") ? "conn" : "no conn");
+	Serial.println(MQTTClient.connect(controllerName) ? "conn" : "no conn");
 	subscribeToOutputs();
 	Serial.println("Sub out");
 }
