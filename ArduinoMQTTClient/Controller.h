@@ -45,7 +45,6 @@ public:
 	Controller();
 	void subscribeToOutputs();
 	void run();
-	static char topicBuffer[15];
 };
 #endif
 

@@ -14,5 +14,15 @@ Input::Input(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceTy
 
 void Input::interruptHandler() {
 	inputs[arduinoInterruptedPin]->inputChange.pinChanged = true;
-	inputs[arduinoInterruptedPin]->inputChange.pinChangedTo = arduinoPinState > 0;
+	inputs[arduinoInterruptedPin]->inputChange.stateChangedTo = arduinoPinState > 0;
+}
+
+bool Input::debounce() {
+	unsigned long currentMillis = millis();
+	if ((currentMillis - lastProcessedMillis) > DEBOUNCE_TIME_MILLIS) {
+		lastProcessedMillis = currentMillis;
+		Serial.println("DEBOUNCED");
+		return true;
+	}
+	return false;
 }

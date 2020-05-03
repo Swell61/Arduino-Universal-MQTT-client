@@ -5,6 +5,7 @@
 #include "Relay.h"
 #include "Contact.h"
 #include <../UIPEthernet/UIPEthernet.h>
+#include <MemoryFree.h>
 
 /* Store ALL topic strings with PROGMEM to keep them out of SRAM.
  * Ensure topicBuffer is large enough to accommodate the largest topic string.
@@ -13,7 +14,6 @@
  * usage is more important than speed ;). */
 const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
 const char PROGMEM contact1Topic[]{ "out/ard1/cont" };
-char Controller::topicBuffer[15] = { "\0" };
 
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
@@ -52,13 +52,12 @@ void Controller::subscribeToOutputs() {
 	Serial.println(F("start read"));
 	// Subscribe to all output device topics
 	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
-		strncpy_P(topicBuffer, outputDevices[outputDeviceIndex]->getDeviceMQTTTopic(), sizeof(topicBuffer));
-		MQTTClient.subscribe(topicBuffer);
+		MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getDeviceMQTTTopic());
 	}
 }
 
 void Controller::processInputs() {
-	for (byte inputIndex = 0; inputIndex < numOfInputs; ++numOfInputs) {
+	for (byte inputIndex = 0; inputIndex < numOfInputs; ++inputIndex) {
 		inputDevices[inputIndex]->handleInput(MQTTClient);
 	}
 }

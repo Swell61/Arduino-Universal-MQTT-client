@@ -19,7 +19,8 @@
 
 struct inputChange {
 	uint8_t pinChanged : 1;
-	uint8_t pinChangedTo : 1;
+	uint8_t stateChangedTo : 1;
+	uint8_t lastPinStateProcessed : 1;
 };
 
 class Input : public MQTTDevice {
@@ -31,8 +32,12 @@ public:
 	
 	static void interruptHandler();
 protected:
-	volatile inputChange inputChange = {0, 0};
+	volatile inputChange inputChange = {0, 0, 0};
 	static Input* inputs[19];
+	unsigned long lastProcessedMillis = 0;
+	const static uint16_t DEBOUNCE_TIME_MILLIS = 4000;
+
+	bool debounce();
 };
 
 

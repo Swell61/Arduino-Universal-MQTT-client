@@ -15,19 +15,17 @@ Contact::Contact(const char* deviceMQTTTopic, const byte pinNum) : Input(deviceM
 
 void Contact::handleInput(PubSubClient mqttClient) {
 	// If the input changed since last check
-	unsigned long currentMillis = millis();
-	if (true) {
-		delay(100);
-		lastMillis = currentMillis;
-		strncpy_P(Controller::topicBuffer, getDeviceMQTTTopic(), sizeof(Controller::topicBuffer));
+	if (inputChange.pinChanged && inputChange.stateChangedTo != inputChange.lastPinStateProcessed && debounce()) {
 		Serial.println("sending");
-		switch (inputChange.pinChangedTo) {
+		inputChange.lastPinStateProcessed = inputChange.stateChangedTo;
+		switch (inputChange.stateChangedTo) {
 		case (HIGH):
-			mqttClient.publish(Controller::topicBuffer, MQTTDevice::actionStringsToTypes[1].string, false); // Could do with changing. Accessing the array manually was done to conserve SRAM
+			mqttClient.publish(getDeviceMQTTTopic(), MQTTDevice::actionStringsToTypes[1].string); // Could do with changing. Accessing the array manually was done to conserve SRAM
 			break;
 		case (LOW):
-			Serial.println(mqttClient.publish(Controller::topicBuffer, MQTTDevice::actionStringsToTypes[0].string)); // Could do with changing. Accessing the array manually was done to conserve SRAM
+			mqttClient.publish(getDeviceMQTTTopic(), MQTTDevice::actionStringsToTypes[0].string); // Could do with changing. Accessing the array manually was done to conserve SRAM
 			break;
 		}
 	}
+	inputChange.pinChanged = false;
 }
