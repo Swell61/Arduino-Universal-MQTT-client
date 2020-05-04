@@ -11,7 +11,8 @@ const char* getProgmemString(const char* progmemStringLocation);
 static unsigned long lastMillis = 0;
 Contact::Contact(const MQTTDevice& mqttDevice) : Input(mqttDevice) {}
 
-Contact::Contact(const char* deviceMQTTTopic, const byte pinNum) : Input(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::CONTACT, pinNum) {
+Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage) : Input(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::CONTACT, pinNum),
+highMessage(highMessage), lowMessage(lowMessage) {
 	inputs[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 	pinMode(pinNum, INPUT_PULLUP);
 	Serial.print("Added contact to pin ");
@@ -25,13 +26,12 @@ void Contact::handleInput(PubSubClient mqttClient) {
 	if (inputChange.stateChangedTo != inputChange.lastPinStateProcessed && debounce()) {
 		Serial.println("sending");
 		inputChange.lastPinStateProcessed = inputChange.stateChangedTo;
-		inputChange.pinChanged = false;
 		switch (inputChange.stateChangedTo) {
 		case (HIGH):
-			mqttClient.publish(getDeviceMQTTTopic(), getProgmemString(ON_TEXT)); // Could do with changing. Accessing the array manually was done to conserve SRAM
+			mqttClient.publish(getDeviceMQTTTopic(), getProgmemString(highMessage)); // Could do with changing. Accessing the array manually was done to conserve SRAM
 			break;
 		case (LOW):
-			mqttClient.publish(getDeviceMQTTTopic(), getProgmemString(OFF_TEXT)); // Could do with changing. Accessing the array manually was done to conserve SRAM
+			mqttClient.publish(getDeviceMQTTTopic(), getProgmemString(lowMessage)); // Could do with changing. Accessing the array manually was done to conserve SRAM
 			break;
 		}
 	}

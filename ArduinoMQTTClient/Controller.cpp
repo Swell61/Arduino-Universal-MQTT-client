@@ -21,7 +21,7 @@ Controller::Controller() {
 	outputDevices[0] = output;
 	++numOfOutputs;
 
-	inputDevices[0] = new Contact(contact1Topic, 6);
+	inputDevices[0] = new Contact(contact1Topic, 6, OFF_TEXT, ON_TEXT);
 	++numOfInputs;
 
 	if (Controller::callbackControllerPointer == NULL) {

@@ -31,10 +31,10 @@ public:
 	
 	static void interruptHandler();
 protected:
-	volatile inputChange inputChange = {0, 0, 0};
+	volatile inputChange inputChange = {0, 0};
 	static Input* inputs[19];
 	unsigned long lastProcessedMillis = 0;
-	const static uint16_t DEBOUNCE_TIME_MILLIS = 4000;
+	const static byte DEBOUNCE_TIME_MILLIS = 100;
 
 	bool debounce();
 };
