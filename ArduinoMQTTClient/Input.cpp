@@ -15,7 +15,6 @@ Input::Input(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceTy
 }
 
 void Input::interruptHandler() {
-	inputs[arduinoInterruptedPin]->inputChange.pinChanged = true;
 	inputs[arduinoInterruptedPin]->inputChange.stateChangedTo = arduinoPinState > 0;
 }
 

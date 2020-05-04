@@ -18,7 +18,6 @@
 */
 
 struct inputChange {
-	uint8_t pinChanged : 1;
 	uint8_t stateChangedTo : 1;
 	uint8_t lastPinStateProcessed : 1;
 };

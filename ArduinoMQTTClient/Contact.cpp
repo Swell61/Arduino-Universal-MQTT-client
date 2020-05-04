@@ -21,10 +21,8 @@ Contact::Contact(const char* deviceMQTTTopic, const byte pinNum) : Input(deviceM
 
 void Contact::handleInput(PubSubClient mqttClient) {
 	// If the input changed since last check
-	if (inputChange.pinChanged) {
-		Serial.println("Change");
-	}
-	if (inputChange.pinChanged && inputChange.stateChangedTo != inputChange.lastPinStateProcessed && debounce()) {
+
+	if (inputChange.stateChangedTo != inputChange.lastPinStateProcessed && debounce()) {
 		Serial.println("sending");
 		inputChange.lastPinStateProcessed = inputChange.stateChangedTo;
 		inputChange.pinChanged = false;
