@@ -4,14 +4,14 @@
 
 #include "MQTTDevice.h"
 
-char MQTTDevice::topicBuffer[15] = { "\0" };
-const actionStringToType MQTTDevice::actionStringsToTypes[7] = { {"off", MQTTDevice::ACTION::OFF}, { "on", MQTTDevice::ACTION::ON },
-{"open", MQTTDevice::ACTION::OPEN}, {"close", MQTTDevice::ACTION::CLOSE}, {"info", MQTTDevice::ACTION::INFO}, {"caution", MQTTDevice::ACTION::CAUTION}, {"warning", MQTTDevice::ACTION::WARNING} };
+const actionStringToType MQTTDevice::actionStringsToTypes[7] = { {OFF_TEXT, MQTTDevice::ACTION::OFF}, { ON_TEXT, MQTTDevice::ACTION::ON },
+{OPEN_TEXT, MQTTDevice::ACTION::OPEN}, {CLOSE_TEXT, MQTTDevice::ACTION::CLOSE}, {INFO_TEXT, MQTTDevice::ACTION::INFO}, {CAUTION_TEXT, MQTTDevice::ACTION::CAUTION}, 
+{WARNING_TEXT, MQTTDevice::ACTION::WARNING} };
+
+const char* getProgmemString(const char* progmemStringLocation) {
+	return strncpy_P(progmemBuffer, progmemStringLocation, sizeof(progmemBuffer));
+}
 
 MQTTDevice::MQTTDevice(const MQTTDevice& mqttDevice) : deviceMQTTTopic(mqttDevice.deviceMQTTTopic), pinNum(mqttDevice.pinNum), deviceType(mqttDevice.deviceType) { }
 
 MQTTDevice::MQTTDevice(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : deviceMQTTTopic(deviceMQTTTopic), pinNum(pinNum), deviceType(deviceType) { }
-
-const char* MQTTDevice::getDeviceMQTTTopic() {
-	return strncpy_P(topicBuffer, deviceMQTTTopic, sizeof(topicBuffer));
-}

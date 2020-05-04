@@ -12,6 +12,9 @@
 #include <PubSubClient.h>
 #include <UIPEthernet.h>
 #include "Controller.h"
+
+#define EI_ARDUINO_INTERRUPTED_PIN
+#include <../EnableInterrupt/EnableInterrupt.h>
 #define DEBUG
 void setup() {
 	Serial.begin(9600);

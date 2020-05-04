@@ -3,8 +3,10 @@
 // 
 
 #include "Input.h"
-#define EI_ARDUINO_INTERRUPTED_PIN
-#include <../EnableInterrupt/EnableInterrupt.h>
+extern volatile uint8_t arduinoInterruptedPin;
+extern volatile uint8_t arduinoPinState;
+
+
 Input* Input::inputs[19] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 Input::Input(const MQTTDevice& mqttDevice) : MQTTDevice(mqttDevice) {}
@@ -21,7 +23,6 @@ bool Input::debounce() {
 	unsigned long currentMillis = millis();
 	if ((currentMillis - lastProcessedMillis) > DEBOUNCE_TIME_MILLIS) {
 		lastProcessedMillis = currentMillis;
-		Serial.println("DEBOUNCED");
 		return true;
 	}
 	return false;

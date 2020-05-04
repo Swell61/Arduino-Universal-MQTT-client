@@ -8,9 +8,9 @@
 #include <MemoryFree.h>
 
 /* Store ALL topic strings with PROGMEM to keep them out of SRAM.
- * Ensure topicBuffer is large enough to accommodate the largest topic string.
+ * Ensure progmemBuffer is large enough to accommodate the largest topic string.
  * The logic behind this is you only ever read one topic string at once, so keep
- * them all in PROGMEM and read them into the topicBuffer when they are needed. Memory
+ * them all in PROGMEM and read them into the progmemBuffer when they are needed. Memory
  * usage is more important than speed ;). */
 const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
 const char PROGMEM contact1Topic[]{ "out/ard1/cont" };
@@ -86,10 +86,8 @@ void Controller::callback(char* topic, byte* payload, unsigned int length) {
 }
 
 Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
-	char* const deviceMQTTTopic = strchr(topic, '/');
-
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
-		if (strcmp(outputDevices[outputIndex]->getDeviceMQTTTopic(), deviceMQTTTopic)) {
+		if (strncmp(outputDevices[outputIndex]->getDeviceMQTTTopic(), topic, sizeof(topic)) == 0) {
 			return outputDevices[outputIndex];
 		}
 	}
@@ -98,9 +96,7 @@ Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 
 MQTTDevice::ACTION const Controller::getActionFromPayload(byte* const payload, unsigned int length) {
 	for (byte actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
-		Serial.print("current iter: ");
-		Serial.print(MQTTDevice::actionStringsToTypes[actionTypeIndex].string);
-		if (memcmp(payload, MQTTDevice::actionStringsToTypes[actionTypeIndex].string, length) == 0) {
+		if (memcmp(payload, getProgmemString(MQTTDevice::actionStringsToTypes[actionTypeIndex].string), length) == 0) {
 			return MQTTDevice::actionStringsToTypes[actionTypeIndex].type;
 		}
 	}

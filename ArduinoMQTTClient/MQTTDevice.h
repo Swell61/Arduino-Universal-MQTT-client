@@ -14,10 +14,20 @@
 	Purpose: Class represents any MQTT device hosted by this system
 */
 struct actionStringToType;
+static char progmemBuffer[15] = { '\0' };
+const char* getProgmemString(const char* progmemStringLocation);
+const char PROGMEM OPEN_TEXT[] = { "open" };
+const char PROGMEM CLOSE_TEXT[] = { "close" };
+const char PROGMEM ON_TEXT[] = { "on" };
+const char PROGMEM OFF_TEXT[] = { "off" };
+const char PROGMEM INFO_TEXT[] = { "info" };
+const char PROGMEM CAUTION_TEXT[] = { "caution" };
+const char PROGMEM WARNING_TEXT[] = { "warning" };
+
 class MQTTDevice {
 
 public:
-	PROGMEM enum DEVICE_TYPE : byte {
+	enum DEVICE_TYPE : byte {
 		// Outputs
 		RELAY,
 		ALARM,
@@ -29,7 +39,7 @@ public:
 		TEMP_SENSOR,
 	};
 
-	PROGMEM enum ACTION : byte {
+	enum ACTION : byte {
 		OFF,
 		ON,
 		OPEN,
@@ -46,14 +56,11 @@ public:
 	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
 	MQTTDevice(const MQTTDevice &mqttDevice);
 	MQTTDevice(char const *const deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
-	const char* getDeviceMQTTTopic();
+	const char* getDeviceMQTTTopic() { return getProgmemString(deviceMQTTTopic); };
 
 protected:
 	const byte pinNum; // Pin number device is on
 	const char* deviceMQTTTopic;
-
-private:
-	static char topicBuffer[15];
 };
 
 struct actionStringToType {

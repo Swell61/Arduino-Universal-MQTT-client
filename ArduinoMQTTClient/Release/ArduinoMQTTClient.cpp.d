@@ -45,4 +45,7 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\ArduinoMQTTClient.cpp.o: \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Input.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\MQTTDevice.h \
  e:\users\samuel\documents\arduino\libraries\pubsubclient\src\pubsubclient.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Output.h
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Output.h \
+ e:\users\samuel\documents\arduino\libraries\enableinterrupt\enableinterrupt.h \
+ e:\users\samuel\documents\arduino\libraries\enableinterrupt\utility/ei_PinChange328.h \
+ e:\users\samuel\documents\arduino\libraries\enableinterrupt\utility/ei_External328.h

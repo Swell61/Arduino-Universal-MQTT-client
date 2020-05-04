@@ -18,7 +18,4 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Input.cpp.o: \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/IPAddress.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Client.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/IPAddress.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
- e:\users\samuel\documents\arduino\libraries\enableinterrupt\enableinterrupt.h \
- e:\users\samuel\documents\arduino\libraries\enableinterrupt\utility/ei_PinChange328.h \
- e:\users\samuel\documents\arduino\libraries\enableinterrupt\utility/ei_External328.h
+ J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h
