@@ -24,10 +24,8 @@ struct inputChange {
 
 class Input : public MQTTDevice {
 public:
-	Input(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
+	Input(const MQTTDevice::DEVICE_TYPE deviceType);
 	virtual void handleInput(PubSubClient mqttClient) = 0;
-	
-	
 	static void interruptHandler();
 protected:
 	volatile inputChange inputChange = {0, 0};

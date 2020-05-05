@@ -52,7 +52,7 @@ void Controller::subscribeToOutputs() {
 	Serial.println(F("start read"));
 	// Subscribe to all output device topics
 	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
-		MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getDeviceMQTTTopic());
+		MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getMQTTTopic());
 	}
 }
 
@@ -87,7 +87,7 @@ void Controller::callback(char* topic, byte* payload, unsigned int length) {
 
 Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
-		if (strncmp(outputDevices[outputIndex]->getDeviceMQTTTopic(), topic, sizeof(topic)) == 0) {
+		if (strncmp(outputDevices[outputIndex]->getMQTTTopic(), topic, sizeof(topic)) == 0) {
 			return outputDevices[outputIndex];
 		}
 	}

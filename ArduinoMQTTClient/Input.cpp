@@ -9,7 +9,7 @@ extern volatile uint8_t arduinoPinState;
 
 Input* Input::inputs[19] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
-Input::Input(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : MQTTDevice(deviceMQTTTopic, deviceType, pinNum) {
+Input::Input(const MQTTDevice::DEVICE_TYPE deviceType) : MQTTDevice(deviceType) {
 }
 
 void Input::interruptHandler() {

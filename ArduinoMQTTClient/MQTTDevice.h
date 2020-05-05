@@ -51,15 +51,15 @@ public:
 
 	const static actionStringToType actionStringsToTypes[7];
 	
-	const byte getPinNum() { return pinNum; }
 	
-	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
-	MQTTDevice(char const *const deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
-	const char* getDeviceMQTTTopic() { return getProgmemString(deviceMQTTTopic); };
+	
+	MQTTDevice(const MQTTDevice::DEVICE_TYPE deviceType);
+	const MQTTDevice::DEVICE_TYPE getDeviceType() { return deviceType; }
 
 protected:
-	const byte pinNum; // Pin number device is on
 	const char* deviceMQTTTopic;
+private:
+	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
 };
 
 struct actionStringToType {

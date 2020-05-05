@@ -22,6 +22,10 @@ public:
 private:
 	const char* highMessage;
 	const char* lowMessage;
+	const byte pinNum;
+	const char* mqttTopic;
+
+	const char* getMQTTTopic();
 };
 
 #endif

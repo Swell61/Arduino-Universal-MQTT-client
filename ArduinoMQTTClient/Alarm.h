@@ -18,6 +18,8 @@ class Alarm : public Output {
 public:
 	Alarm(const char* deviceMQTTTopic, const byte pinNum);
 	void action(MQTTDevice::ACTION action);
+private:
+	const byte pinNum;
 };
 
 #endif

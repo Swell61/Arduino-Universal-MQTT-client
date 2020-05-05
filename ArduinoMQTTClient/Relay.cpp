@@ -4,17 +4,17 @@
 
 #include "Relay.h"
 
-Relay::Relay(const char* deviceMQTTTopic, const byte pinNum) : Output(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::RELAY, pinNum) {}
+Relay::Relay(const char* deviceMQTTTopic, const byte pinNum) : Output(MQTTDevice::DEVICE_TYPE::RELAY, deviceMQTTTopic), pinNum(pinNum) {}
 
 void Relay::action(MQTTDevice::ACTION action) {
 	switch (action) {
 	case ON:
 		Serial.println(F("Relay on"));
-		digitalWrite(getPinNum(), HIGH);
+		digitalWrite(pinNum, HIGH);
 		break;
 	case OFF:
 		Serial.println(F("Relay off"));
-		digitalWrite(getPinNum(), LOW);
+		digitalWrite(pinNum, LOW);
 		break;
 	}
 }
