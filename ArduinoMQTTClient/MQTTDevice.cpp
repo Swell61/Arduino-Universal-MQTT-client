@@ -12,6 +12,4 @@ const char* getProgmemString(const char* progmemStringLocation) {
 	return strncpy_P(progmemBuffer, progmemStringLocation, sizeof(progmemBuffer));
 }
 
-MQTTDevice::MQTTDevice(const MQTTDevice& mqttDevice) : deviceMQTTTopic(mqttDevice.deviceMQTTTopic), pinNum(mqttDevice.pinNum), deviceType(mqttDevice.deviceType) { }
-
 MQTTDevice::MQTTDevice(const char* deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum) : deviceMQTTTopic(deviceMQTTTopic), pinNum(pinNum), deviceType(deviceType) { }

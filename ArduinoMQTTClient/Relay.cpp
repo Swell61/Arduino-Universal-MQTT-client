@@ -3,7 +3,6 @@
 // 
 
 #include "Relay.h"
-Relay::Relay(const MQTTDevice& mqttDevice) : Output(mqttDevice) {}
 
 Relay::Relay(const char* deviceMQTTTopic, const byte pinNum) : Output(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::RELAY, pinNum) {}
 

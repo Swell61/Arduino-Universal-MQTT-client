@@ -54,7 +54,6 @@ public:
 	const byte getPinNum() { return pinNum; }
 	
 	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
-	MQTTDevice(const MQTTDevice &mqttDevice);
 	MQTTDevice(char const *const deviceMQTTTopic, const MQTTDevice::DEVICE_TYPE deviceType, const byte pinNum);
 	const char* getDeviceMQTTTopic() { return getProgmemString(deviceMQTTTopic); };
 

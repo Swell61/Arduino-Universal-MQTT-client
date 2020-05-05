@@ -3,7 +3,6 @@
 // 
 
 #include "TempSensor.h"
-TempSensor::TempSensor(const MQTTDevice& mqttDevice) : Input(mqttDevice) {}
 
 TempSensor::TempSensor(const char* deviceMQTTTopic, const byte pinNum) : Input(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::TEMP_SENSOR, pinNum) {}
 

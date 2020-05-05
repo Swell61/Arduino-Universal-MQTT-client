@@ -9,7 +9,6 @@ void enableInterrupt(uint8_t pinNumber, void (*userFunction)(void), uint8_t mode
 const char* getProgmemString(const char* progmemStringLocation);
 
 static unsigned long lastMillis = 0;
-Contact::Contact(const MQTTDevice& mqttDevice) : Input(mqttDevice) {}
 
 Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage) : Input(deviceMQTTTopic, MQTTDevice::DEVICE_TYPE::CONTACT, pinNum),
 highMessage(highMessage), lowMessage(lowMessage) {
