@@ -40,11 +40,12 @@ void Controller::setup() {
 }
 
 void Controller::setupMQTT() {
-	while (!MQTTClient.connected()) {
-		MQTTClient.connect(controllerName);
-		delay(2000);
+	
+	MQTTClient.connect(controllerName);
+	
+	if (MQTTClient.connected()) {
+		subscribeToOutputs();
 	}
-	subscribeToOutputs();
 	
 }
 
