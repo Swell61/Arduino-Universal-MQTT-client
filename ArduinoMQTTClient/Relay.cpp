@@ -11,12 +11,12 @@ void Relay::action(MQTTDevice::ACTION action, PubSubClient mqttClient) {
 	case ON:
 		Serial.println(F("Relay on"));
 		digitalWrite(pinNum, HIGH);
-		mqttClient.publish_P(getMQTTRespondTopic(), ON_TEXT, sizeof(ON_TEXT), false);
+		mqttClient.publish_P(getMQTTRespondTopic(), ON_TEXT, strlen_P(ON_TEXT), false);
 		break;
 	case OFF:
 		Serial.println(F("Relay off"));
 		digitalWrite(pinNum, LOW);
-		mqttClient.publish_P(getMQTTRespondTopic(), OFF_TEXT, sizeof(OFF_TEXT), false);
+		mqttClient.publish_P(getMQTTRespondTopic(), OFF_TEXT, strlen_P(OFF_TEXT), false);
 		break;
 	}
 }
