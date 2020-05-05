@@ -16,8 +16,8 @@
 */
 class Relay : public Output {
 public:
-	Relay(const char* deviceMQTTTopic, const byte pinNum);
-	void action(MQTTDevice::ACTION action);
+	Relay(const char* mqttListenTopic, const char* mqttRespondTopic, const byte pinNum);
+	void action(MQTTDevice::ACTION action, PubSubClient mqttClient);
 private:
 	const byte pinNum;
 };

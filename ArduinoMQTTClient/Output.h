@@ -9,6 +9,7 @@
 	#include "WProgram.h"
 #endif
 #include "MQTTDevice.h"
+#include <../pubsubclient/src/PubSubClient.h>
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
@@ -17,11 +18,14 @@
 class Output : public MQTTDevice {
 
 public:
-	Output(const MQTTDevice::DEVICE_TYPE deviceType, const char* mqttTopic);
-	virtual void action(MQTTDevice::ACTION action) = 0;
-	const char* getMQTTTopic();
+	Output(const MQTTDevice::DEVICE_TYPE deviceType, const char* mqttListenTopic, const char* mqttRespondTopic);
+	virtual void action(MQTTDevice::ACTION action, PubSubClient mqttClient) = 0;
+	const char* getMQTTListenTopic();
+protected:
+	const char* getMQTTRespondTopic();
 private:
-	const char* mqttTopic;
+	const char* mqttListenTopic;
+	const char* mqttRespondTopic;
 };
 
 #endif

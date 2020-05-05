@@ -10,7 +10,7 @@ const char* getProgmemString(const char* progmemStringLocation);
 
 static unsigned long lastMillis = 0;
 
-Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage) : Input(MQTTDevice::DEVICE_TYPE::CONTACT), pinNum(pinNum), mqttTopic(deviceMQTTTopic),
+Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage) : Input(MQTTDevice::DEVICE_TYPE::CONTACT), pinNum(pinNum), mqttListenTopic(deviceMQTTTopic),
 highMessage(highMessage), lowMessage(lowMessage) {
 	inputs[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 	pinMode(pinNum, INPUT_PULLUP);
@@ -27,15 +27,15 @@ void Contact::handleInput(PubSubClient mqttClient) {
 		inputChange.lastPinStateProcessed = inputChange.stateChangedTo;
 		switch (inputChange.stateChangedTo) {
 		case (HIGH):
-			mqttClient.publish(getMQTTTopic(), getProgmemString(highMessage));
+			mqttClient.publish(getMQTTListenTopic(), getProgmemString(highMessage));
 			break;
 		case (LOW):
-			mqttClient.publish(getMQTTTopic(), getProgmemString(lowMessage));
+			mqttClient.publish(getMQTTListenTopic(), getProgmemString(lowMessage));
 			break;
 		}
 	}
 }
 
-const char* Contact::getMQTTTopic() {
-	return getProgmemString(mqttTopic);
+const char* Contact::getMQTTListenTopic() {
+	return getProgmemString(mqttListenTopic);
 }

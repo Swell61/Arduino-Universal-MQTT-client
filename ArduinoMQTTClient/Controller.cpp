@@ -13,11 +13,12 @@
  * them all in PROGMEM and read them into the progmemBuffer when they are needed. Memory
  * usage is more important than speed ;). */
 const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
+const char PROGMEM relay1RespondTopic[] = { "stat/ard1/rly1" };
 const char PROGMEM contact1Topic[]{ "out/ard1/cont" };
 
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
-	Output* output = new Relay(relay1Topic, 8);
+	Output* output = new Relay(relay1Topic, relay1RespondTopic, 8);
 	outputDevices[0] = output;
 	++numOfOutputs;
 
@@ -53,7 +54,7 @@ void Controller::subscribeToOutputs() {
 	Serial.println(F("start read"));
 	// Subscribe to all output device topics
 	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
-		MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getMQTTTopic());
+		MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getMQTTListenTopic());
 	}
 }
 
@@ -83,12 +84,12 @@ void Controller::run() {
 }
 
 void Controller::callback(char* topic, byte* payload, unsigned int length) {
-	getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length));
+	getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length), MQTTClient);
 }
 
 Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
-		if (strncmp(outputDevices[outputIndex]->getMQTTTopic(), topic, sizeof(topic)) == 0) {
+		if (strncmp(outputDevices[outputIndex]->getMQTTListenTopic(), topic, sizeof(topic)) == 0) {
 			return outputDevices[outputIndex];
 		}
 	}

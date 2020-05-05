@@ -20,7 +20,7 @@ public:
 	void handleInput(PubSubClient mqttClient) override;
 private:
 	const byte pinNum;
-	const char* mqttTopic;
+	const char* mqttListenTopic;
 };
 
 #endif

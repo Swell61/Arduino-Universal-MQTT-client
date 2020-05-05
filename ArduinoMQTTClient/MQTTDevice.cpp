@@ -9,7 +9,7 @@ const actionStringToType MQTTDevice::actionStringsToTypes[7] = { {OFF_TEXT, MQTT
 {WARNING_TEXT, MQTTDevice::ACTION::WARNING} };
 
 const char* getProgmemString(const char* progmemStringLocation) {
-	return strncpy_P(progmemBuffer, progmemStringLocation, sizeof(progmemBuffer));
+	return strcpy_P(progmemBuffer, progmemStringLocation);
 }
 
 MQTTDevice::MQTTDevice(const MQTTDevice::DEVICE_TYPE deviceType) : deviceType(deviceType) { }

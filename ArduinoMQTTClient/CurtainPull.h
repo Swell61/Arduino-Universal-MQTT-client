@@ -16,8 +16,8 @@
 */
 class CurtainPull : public Output {
 public:
-	CurtainPull(const char* deviceMQTTTopic, const byte pinNum);
-	void action(MQTTDevice::ACTION action);
+	CurtainPull(const char* mqttListenTopic, const char* mqttRespondTopic, const byte pinNum);
+	void action(MQTTDevice::ACTION action, PubSubClient mqttClient);
 private:
 	const byte pinNum;
 };
