@@ -37,6 +37,7 @@ public:
 		SWITCH,
 		CONTACT,
 		TEMP_SENSOR,
+		ALARM_MOTION_SENSOR,
 	};
 
 	enum ACTION : byte {
