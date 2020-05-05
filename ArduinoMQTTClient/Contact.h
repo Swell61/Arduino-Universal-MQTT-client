@@ -9,16 +9,12 @@
 	#include "WProgram.h"
 #endif
 #include "Input.h"
+#include "InputChange.h"
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
 	Purpose: Logic for contact based input (ie a contact for a window or door to detect whether it is open or not)
 */
-
-struct inputChange {
-	uint8_t stateChangedTo : 1;
-	uint8_t lastPinStateProcessed : 1;
-};
 
 class Contact : public Input {
 public:
@@ -27,7 +23,7 @@ public:
 
 	static void interruptHandler();
 private:
-	volatile inputChange inputChange = { 0, 0 };
+	volatile struct InputChange inputChange;
 	static Contact* contacts[16];
 
 	const char* highMessage;

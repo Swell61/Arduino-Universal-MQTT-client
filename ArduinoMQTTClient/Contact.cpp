@@ -17,11 +17,12 @@ void Contact::interruptHandler() {
 
 
 Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage) : Input(MQTTDevice::DEVICE_TYPE::CONTACT), pinNum(pinNum), mqttListenTopic(deviceMQTTTopic),
-highMessage(highMessage), lowMessage(lowMessage) {
+highMessage(highMessage), lowMessage(lowMessage), inputChange(pinNum) {
 	contacts[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 	pinMode(pinNum, INPUT_PULLUP);
 	Serial.print("Added contact to pin ");
 	Serial.println(pinNum);
+	bool startingState = digitalRead(pinNum) == HIGH;
 	enableInterrupt(pinNum, Contact::interruptHandler, CHANGE);
 }
 

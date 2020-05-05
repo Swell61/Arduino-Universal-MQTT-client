@@ -11,6 +11,7 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\ArduinoMQTTClient.cpp.o: \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\InputChange.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\AlarmMotionSensor.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Input.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\MQTTDevice.h \

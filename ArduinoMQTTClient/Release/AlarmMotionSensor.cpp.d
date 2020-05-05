@@ -20,4 +20,5 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\AlarmMotionSensor.cpp.o: \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Client.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/IPAddress.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Contact.h
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Contact.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\InputChange.h

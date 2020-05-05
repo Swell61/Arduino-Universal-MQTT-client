@@ -6,6 +6,7 @@
 
 // the setup function runs once when you press reset or power the board
 
+#include "InputChange.h"
 #include "AlarmMotionSensor.h"
 #include <MemoryFree.h>
 #include <SPI.h>

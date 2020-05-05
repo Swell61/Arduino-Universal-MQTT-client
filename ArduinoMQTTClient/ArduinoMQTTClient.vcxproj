@@ -125,6 +125,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="CurtainPull.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="InputChange.h" />
     <ClInclude Include="MQTTDevice.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="Relay.h" />
@@ -138,6 +139,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="CurtainPull.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="InputChange.cpp" />
     <ClCompile Include="MQTTDevice.cpp" />
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="Relay.cpp" />
