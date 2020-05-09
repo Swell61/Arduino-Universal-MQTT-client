@@ -21,7 +21,7 @@ class Controller {
 
 private:
 	const IPAddress controllerIP = IPAddress(192, 168, 0, 170);
-	const IPAddress MQTTBrokerIP = IPAddress(192, 168, 0, 57);
+	const IPAddress MQTTBrokerIP = IPAddress(192, 168, 0, 80);
 	const byte mac[6] = { 0x00,0x01,0x02,0x03,0x04,0x05 };
 	EthernetClient ethConnection;
 	PubSubClient MQTTClient;

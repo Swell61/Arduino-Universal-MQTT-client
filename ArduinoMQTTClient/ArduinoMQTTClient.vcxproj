@@ -121,6 +121,7 @@
   <ItemGroup>
     <ClInclude Include="Alarm.h" />
     <ClInclude Include="AlarmMotionSensor.h" />
+    <ClInclude Include="AlarmSirenStrobe.h" />
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="CurtainPull.h" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="Alarm.cpp" />
     <ClCompile Include="AlarmMotionSensor.cpp" />
+    <ClCompile Include="AlarmSirenStrobe.cpp" />
     <ClCompile Include="Contact.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="CurtainPull.cpp" />

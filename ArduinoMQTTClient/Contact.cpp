@@ -34,10 +34,10 @@ void Contact::handleInput(PubSubClient mqttClient) {
 		inputChange.lastPinStateProcessed = inputChange.stateChangedTo;
 		switch (inputChange.stateChangedTo) {
 		case (HIGH):
-			mqttClient.publish_P(getMQTTListenTopic(), highMessage, strlen_P(highMessage), false);
+			mqttClient.publish_P(getMQTTListenTopic(), highMessage, strlen_P(highMessage), true);
 			break;
 		case (LOW):
-			mqttClient.publish_P(getMQTTListenTopic(), lowMessage, strlen_P(lowMessage), false);
+			mqttClient.publish_P(getMQTTListenTopic(), lowMessage, strlen_P(lowMessage), true);
 			break;
 		}
 	}

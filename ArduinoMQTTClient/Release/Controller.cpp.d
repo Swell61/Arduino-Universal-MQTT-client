@@ -47,5 +47,6 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Controller.cpp.o: \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Relay.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Contact.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\InputChange.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\AlarmMotionSensor.h \
  e:\users\samuel\documents\arduino\libraries\uipethernet\uipethernet.h \
  E:\Users\Samuel\Documents\Arduino\libraries\MemoryFree-master/MemoryFree.h

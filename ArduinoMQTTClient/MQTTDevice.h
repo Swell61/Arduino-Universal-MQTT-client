@@ -23,6 +23,10 @@ const char PROGMEM OFF_TEXT[] = { "off" };
 const char PROGMEM INFO_TEXT[] = { "info" };
 const char PROGMEM CAUTION_TEXT[] = { "caution" };
 const char PROGMEM WARNING_TEXT[] = { "warning" };
+const char PROGMEM MOTION_TEXT[] = { "motion" };
+const char PROGMEM NO_MOTION_TEXT[] = { "noMotion" };
+const char PROGMEM TAMPERED_TEXT[] = { "tampered" };
+const char PROGMEM NORMAL_TEXT[] = { "normal" };
 
 class MQTTDevice {
 

@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include "Relay.h"
 #include "Contact.h"
+#include "AlarmMotionSensor.h"
 #include <../UIPEthernet/UIPEthernet.h>
 #include <MemoryFree.h>
 
@@ -12,17 +13,13 @@
  * The logic behind this is you only ever read one topic string at once, so keep
  * them all in PROGMEM and read them into the progmemBuffer when they are needed. Memory
  * usage is more important than speed ;). */
-const char PROGMEM relay1Topic[] = { "cmnd/ard1/test" };
-const char PROGMEM relay1RespondTopic[] = { "stat/ard1/rly1" };
-const char PROGMEM contact1Topic[]{ "out/ard1/cont" };
+const char PROGMEM alarmSensorMotion[] = { "stat/ard1/mot" };
+const char PROGMEM alarmSensorTamper[]{ "stat/ard1/tamp" };
 
 Controller* Controller::callbackControllerPointer = NULL;
 Controller::Controller() {
-	Output* output = new Relay(relay1Topic, relay1RespondTopic, 8);
-	outputDevices[0] = output;
-	++numOfOutputs;
 
-	inputDevices[0] = new Contact(contact1Topic, 6, OFF_TEXT, ON_TEXT);
+	inputDevices[0] = new AlarmMotionSensor(alarmSensorMotion, alarmSensorTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT);
 	++numOfInputs;
 
 	if (Controller::callbackControllerPointer == NULL) {
@@ -36,13 +33,12 @@ Controller::Controller() {
 void Controller::setup() {
 	
 	Ethernet.begin(mac, controllerIP); // Start the ethernet connection
-	Serial.println(Ethernet.localIP());
 	delay(1500);
 }
 
 void Controller::setupMQTT() {
 	
-	MQTTClient.connect(controllerName);
+	MQTTClient.connect(controllerName, "mqtt", "^3r92444@K!MJM!g");
 	
 	if (MQTTClient.connected()) {
 		subscribeToOutputs();
@@ -51,7 +47,6 @@ void Controller::setupMQTT() {
 }
 
 void Controller::subscribeToOutputs() {
-	Serial.println(F("start read"));
 	// Subscribe to all output device topics
 	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
 		MQTTClient.subscribe(outputDevices[outputDeviceIndex]->getMQTTListenTopic());
@@ -67,11 +62,9 @@ void Controller::processInputs() {
 void Controller::run() {
 	while (true) {
 		if (Ethernet.linkStatus() == LinkOFF || Ethernet.linkStatus() == Unknown) {
-			Serial.println(F("eth"));
 			setup();
 		}
 		else if (!MQTTClient.connected()) {
-			Serial.println(F("MQTT"));
 			MQTTClient.connected();
 			setupMQTT();
 		}
