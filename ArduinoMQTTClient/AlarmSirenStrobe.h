@@ -10,7 +10,10 @@
 #endif
 #include "Relay.h"
 #include "Contact.h"
-/* This is an output and an input. An alarm siren and strobe combo is mostly thought of as an output, it has been put in the output folder, even though it has a tamper switch input.
+/*
+	Author: Samuel Bailey
+	Date: 09/05/2020
+	Purpose: This is an output and an input. An alarm siren and strobe combo is mostly thought of as an output, it has been put in the output folder, even though it has a tamper switch input.
  */
 class AlarmSirenStrobe : public Input, public Output {
 public:
