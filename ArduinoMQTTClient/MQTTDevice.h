@@ -23,6 +23,7 @@ const char PROGMEM OFF_TEXT[] = { "off" };
 const char PROGMEM INFO_TEXT[] = { "info" };
 const char PROGMEM CAUTION_TEXT[] = { "caution" };
 const char PROGMEM WARNING_TEXT[] = { "warning" };
+const char PROGMEM ALARM_TEXT[] = { "alarm" };
 const char PROGMEM MOTION_TEXT[] = { "motion" };
 const char PROGMEM NO_MOTION_TEXT[] = { "noMotion" };
 const char PROGMEM TAMPERED_TEXT[] = { "tampered" };
@@ -34,8 +35,8 @@ public:
 	enum DEVICE_TYPE : byte {
 		// Outputs
 		RELAY,
-		ALARM,
 		CURTAIN_PULL,
+		ALARM_SIREN_STROBE,
 
 		// Input
 		SWITCH,
@@ -52,9 +53,10 @@ public:
 		INFO,
 		CAUTION,
 		WARNING,
+		ALARM
 	};
 
-	const static actionStringToType actionStringsToTypes[7];
+	const static actionStringToType actionStringsToTypes[8];
 	
 	
 	

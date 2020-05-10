@@ -119,7 +119,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Alarm.h" />
     <ClInclude Include="AlarmMotionSensor.h" />
     <ClInclude Include="AlarmSirenStrobe.h" />
     <ClInclude Include="Contact.h" />
@@ -134,7 +133,6 @@
     <ClInclude Include="__vm\.ArduinoMQTTClient.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Alarm.cpp" />
     <ClCompile Include="AlarmMotionSensor.cpp" />
     <ClCompile Include="AlarmSirenStrobe.cpp" />
     <ClCompile Include="Contact.cpp" />

@@ -20,6 +20,7 @@ class Output : public MQTTDevice {
 public:
 	Output(const MQTTDevice::DEVICE_TYPE deviceType, const char* mqttListenTopic, const char* mqttRespondTopic);
 	virtual void action(MQTTDevice::ACTION action, PubSubClient mqttClient) = 0;
+	virtual void subscribe(PubSubClient mqttClient) = 0;
 	const char* getMQTTListenTopic();
 protected:
 	const char* getMQTTRespondTopic();
