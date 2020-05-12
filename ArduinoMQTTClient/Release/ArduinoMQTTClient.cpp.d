@@ -11,24 +11,14 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\ArduinoMQTTClient.cpp.o: \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/USBAPI.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\variants\standard/pins_arduino.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\AlarmSirenStrobe.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Relay.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Output.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\MQTTDevice.h \
- e:\users\samuel\documents\arduino\libraries\pubsubclient\src\pubsubclient.h \
+ J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\SPI\src/SPI.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Arduino.h \
+ J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\EEPROM\src/EEPROM.h \
+ E:\Users\Samuel\Documents\Arduino\libraries\pubsubclient\src/PubSubClient.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/IPAddress.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Client.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/IPAddress.h \
  J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\cores\arduino/Stream.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Contact.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Input.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\InputChange.h \
- J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\AlarmMotionSensor.h \
- E:\Users\Samuel\Documents\Arduino\libraries\MemoryFree-master/MemoryFree.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\SPI\src/SPI.h \
- J:\Program\ Files\ (x86)\Arduino\hardware\arduino\avr\libraries\EEPROM\src/EEPROM.h \
- E:\Users\Samuel\Documents\Arduino\libraries\pubsubclient\src/PubSubClient.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/UIPEthernet.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/ethernet_comp.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/Enc28J60Network.h \
@@ -51,6 +41,10 @@ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\ArduinoMQTTClient.cpp.o: \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/uip_clock.h \
  E:\Users\Samuel\Documents\Arduino\libraries\UIPEthernet/utility/clock-arch.h \
  J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Controller.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Input.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\MQTTDevice.h \
+ e:\users\samuel\documents\arduino\libraries\pubsubclient\src\pubsubclient.h \
+ J:\Temp\VMBuilds\ArduinoMQTTClient\uno\Release\Output.h \
  e:\users\samuel\documents\arduino\libraries\enableinterrupt\enableinterrupt.h \
  e:\users\samuel\documents\arduino\libraries\enableinterrupt\utility/ei_PinChange328.h \
  e:\users\samuel\documents\arduino\libraries\enableinterrupt\utility/ei_External328.h

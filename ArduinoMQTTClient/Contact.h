@@ -23,14 +23,13 @@ public:
 
 	static void interruptHandler();
 private:
+	static Contact* contacts[16]; // Stores pointer to all contact objects. Each index is a pin number, used for dirrecting an interrupt to the correct instance
+
+	const char* highMessage; // MQTT payload for when the pin goes high
+	const char* lowMessage; // MQTT payload for when the pin goes low
+	const byte pinNum; // Pin number the contact device is connected to
+	const char* mqttStateTopic; // MQTT topic to use to report a state change
 	volatile struct InputChange inputChange;
-	static Contact* contacts[16];
-
-	const char* highMessage;
-	const char* lowMessage;
-	const byte pinNum;
-	const char* mqttListenTopic;
-
 	const char* getMQTTListenTopic();
 };
 

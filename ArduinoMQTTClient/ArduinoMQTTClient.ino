@@ -4,12 +4,6 @@
  Author:	Samuel
 */
 
-// the setup function runs once when you press reset or power the board
-
-#include "AlarmSirenStrobe.h"
-#include "InputChange.h"
-#include "AlarmMotionSensor.h"
-#include <MemoryFree.h>
 #include <SPI.h>
 #include <EEPROM.h>
 #include <PubSubClient.h>

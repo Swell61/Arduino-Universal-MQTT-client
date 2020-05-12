@@ -12,24 +12,29 @@ AlarmSirenStrobe::AlarmSirenStrobe(const char* alarmMqttCommandTopic, const char
 
 void AlarmSirenStrobe::action(MQTTDevice::ACTION action, PubSubClient mqttClient) {
 	switch (action) {
+
 	case MQTTDevice::ACTION::OFF:
+		// Siren and strobe to off
 		digitalWrite(sirenPinNum, LOW);
 		digitalWrite(strobePinNum, LOW);
-		mqttClient.publish_P(getMQTTRespondTopic(), OFF_TEXT, strlen_P(OFF_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), OFF_TEXT, strlen_P(OFF_TEXT), false);
 		break;
 	case MQTTDevice::ACTION::WARNING:
+		// Siren to off, strobe to on
 		digitalWrite(sirenPinNum, LOW);
 		digitalWrite(strobePinNum, HIGH);
-		mqttClient.publish_P(getMQTTRespondTopic(), WARNING_TEXT, strlen_P(WARNING_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), WARNING_TEXT, strlen_P(WARNING_TEXT), false);
 		break;
 	case MQTTDevice::ACTION::ALARM:
+		// Siren and strobe to on
 		digitalWrite(sirenPinNum, HIGH);
 		digitalWrite(strobePinNum, HIGH);
-		mqttClient.publish_P(getMQTTRespondTopic(), ALARM_TEXT, strlen_P(ALARM_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), ALARM_TEXT, strlen_P(ALARM_TEXT), false);
 		break;
 	}
 }
 
 void AlarmSirenStrobe::handleInput(PubSubClient mqttClient) {
+	// Pass handle through to tamper switch Contact
 	tamperSwitch.handleInput(mqttClient);
 }

@@ -14,7 +14,8 @@
 /*
 	Author: Samuel Bailey
 	Date: 05/05/2020
-	Purpose: Motion sensor that contains a PIR sensor to detect motion, and a tamper switch to detect if someone is trying to dissassemble the motion sensor while it is active.
+	Purpose: Motion sensor that contains a PIR sensor to detect motion, and a tamper switch to detect if someone is trying to dissassemble the motion sensor while it is active. Both
+				devices are 'normal' (i.e. no motion and no tamper) when the circuit is closed. If the circuit is broken, the devices trigger (this is incase the wires are cut).
 */
 
 class AlarmMotionSensor : public Input {

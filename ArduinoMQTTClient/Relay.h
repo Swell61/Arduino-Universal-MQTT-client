@@ -16,11 +16,12 @@
 */
 class Relay : public Output {
 public:
-	Relay(const char* mqttListenTopic, const char* mqttRespondTopic, const byte pinNum, const bool activeHigh);
+	Relay(const char* mqttStateTopic, const char* mqttRespondTopic, const byte pinNum, const bool activeHigh);
+
 	void action(MQTTDevice::ACTION action, PubSubClient mqttClient);
 private:
 	const byte pinNum;
-	const bool activeHigh = 1;
+	const bool activeHigh = 1; // Some devices are active high, some are active low (internal pullup resistor used)
 };
 
 #endif

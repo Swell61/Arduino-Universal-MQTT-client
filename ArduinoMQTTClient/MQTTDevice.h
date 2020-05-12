@@ -13,9 +13,12 @@
 	Date: 30/07/2019
 	Purpose: Class represents any MQTT device hosted by this system
 */
-struct actionStringToType;
-static char progmemBuffer[15] = { '\0' };
-const char* getProgmemString(const char* progmemStringLocation);
+
+struct actionStringToType; // forward declare
+static char progmemBuffer[15] = { '\0' }; // Buffer to use when reading from program flash memory
+const char* getProgmemString(const char* progmemStringLocation); // Takes in a progmem address for a string and returns the start address of a null-terminated buffer containing the string
+
+// String representations of actions
 const char PROGMEM OPEN_TEXT[] = { "open" };
 const char PROGMEM CLOSE_TEXT[] = { "close" };
 const char PROGMEM ON_TEXT[] = { "on" };
@@ -56,24 +59,22 @@ public:
 		ALARM
 	};
 
-	const static actionStringToType actionStringsToTypes[8];
-	
-	
+	const static actionStringToType actionStringsToTypes[8]; // Needs to be updated when a new action type is added
 	
 	MQTTDevice(const MQTTDevice::DEVICE_TYPE deviceType);
 	const MQTTDevice::DEVICE_TYPE getDeviceType() { return deviceType; }
 
-protected:
-	const char* deviceMQTTTopic;
 private:
 	MQTTDevice::DEVICE_TYPE deviceType; // Type of device this instance represents
 };
 
+// Points a string to its equivelant enum
 struct actionStringToType {
 	actionStringToType(const char* string, MQTTDevice::ACTION type) : string(string), type(type) {}
 	const char* string;
 	MQTTDevice::ACTION type;
 };
+
 
 #endif
 
