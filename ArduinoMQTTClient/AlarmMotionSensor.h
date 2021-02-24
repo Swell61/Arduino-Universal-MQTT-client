@@ -3,11 +3,6 @@
 #ifndef _ALARMMOTIONSENSOR_h
 #define _ALARMMOTIONSENSOR_h
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
 #include "Input.h"
 #include "Contact.h"
 

@@ -2,12 +2,8 @@
 
 #ifndef _CONTACT_h
 #define _CONTACT_h
+#include <Arduino.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
 #include "Input.h"
 #include "InputChange.h"
 /*
@@ -15,6 +11,7 @@
 	Date: 31/07/2019
 	Purpose: Logic for contact based input (ie a contact for a window or door to detect whether it is open or not)
 */
+
 
 class Contact : public Input {
 public:

@@ -2,12 +2,8 @@
 
 #ifndef _MQTTDEVICE_h
 #define _MQTTDEVICE_h
+#include <Arduino.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
 /*
 	Author: Samuel Bailey
 	Date: 30/07/2019

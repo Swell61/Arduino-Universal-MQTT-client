@@ -2,12 +2,8 @@
 
 #ifndef _ALARMSIRENSTROBE_h
 #define _ALARMSIRENSTROBE_h
+#include <Arduino.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
 #include "Relay.h"
 #include "Contact.h"
 /*

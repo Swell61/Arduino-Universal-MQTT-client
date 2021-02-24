@@ -2,12 +2,8 @@
 
 #ifndef _RELAY_h
 #define _RELAY_h
+#include <Arduino.h>
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
 #include "Output.h"
 /*
 	Author: Samuel Bailey

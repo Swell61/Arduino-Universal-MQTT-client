@@ -2,25 +2,15 @@
 // 
 // 
 #include "Controller.h"
-#include "Relay.h"
-#include "Contact.h"
-#include "AlarmMotionSensor.h"
 #include <../UIPEthernet/UIPEthernet.h>
 
-/* Store ALL topic strings with PROGMEM to keep them out of SRAM.
- * Ensure progmemBuffer is large enough to accommodate the largest topic string.
- * The logic behind this is you only ever read one topic string at once, so keep
- * them all in PROGMEM and read them into the progmemBuffer when they are needed. Memory
- * usage is more important than speed ;). */
-const char PROGMEM alarmSensorMotion[] = { "stat/ard1/mot" };
-const char PROGMEM alarmSensorTamper[]{ "stat/ard1/tamp" };
 
 Controller* Controller::callbackControllerPointer = NULL; // Initial callback controller pointer definition. Changed in Controller constructor to point to correct Controller (there will only be 1)
-Controller::Controller() {
+Controller::Controller() 
+	 {
 	// Setup an input and output devices
-	inputDevices[0] = new AlarmMotionSensor(alarmSensorMotion, alarmSensorTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT);
+	//inputDevices[0] = new AlarmMotionSensor(alarmSensorMotion, alarmSensorTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT);
 	++numOfInputs;
-
 	// Initialise controller callback to point to current controller
 	if (Controller::callbackControllerPointer == NULL) {
 		Controller::callbackControllerPointer = this;
@@ -82,7 +72,7 @@ void Controller::callback(char* topic, byte* payload, unsigned int length) {
 	getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length), MQTTClient);
 }
 
-Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
+Output* Controller::getOutputDeviceFromTopic(const char* topic) {
 	for (byte outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
 		if (strncmp(outputDevices[outputIndex]->getMQTTListenTopic(), topic, sizeof(topic)) == 0) {
 			return outputDevices[outputIndex];
@@ -92,7 +82,7 @@ Output* const Controller::getOutputDeviceFromTopic(char *const topic) {
 }
 
 // Finds the corresponding ACTION enum for the payload send by broker
-MQTTDevice::ACTION const Controller::getActionFromPayload(byte* const payload, unsigned int payloadLength) {
+MQTTDevice::ACTION Controller::getActionFromPayload(const byte* payload, unsigned int payloadLength) {
 	for (byte actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
 		
 		// Compare the payload to each string representation of each ACTION enum

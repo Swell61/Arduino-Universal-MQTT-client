@@ -11,17 +11,14 @@
 #include "Controller.h"
 
 #define EI_ARDUINO_INTERRUPTED_PIN
-#include <../EnableInterrupt/EnableInterrupt.h>
+#include <EnableInterrupt.h>
 #define DEBUG
 void setup() {
-	Serial.begin(9600);
-	Serial.println(F("starting"));
-	Controller controller = Controller();
+	Controller controller;
 	controller.run();
 }
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-	
-	
+
 }

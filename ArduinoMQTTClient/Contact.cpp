@@ -22,22 +22,19 @@ Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* hig
 highMessage(highMessage), lowMessage(lowMessage), inputChange(pinNum) {
 	contacts[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 	pinMode(pinNum, INPUT_PULLUP);
-	Serial.print("Added contact to pin ");
-	Serial.println(pinNum);
 	enableInterrupt(pinNum, Contact::interruptHandler, CHANGE); // Enable interrup for current pin on level change so as not to miss a change
 }
 
 void Contact::handleInput(PubSubClient mqttClient) {
 	// If the input changed since last check and we're not in a debounce. Note, debounce check only done if there is a pending input change
 	if (inputChange.stateChangedTo != inputChange.lastPinStateProcessed && debounce()) {
-		Serial.println("sending");
 		inputChange.lastPinStateProcessed = inputChange.stateChangedTo;
 		switch (inputChange.stateChangedTo) {
 		case (HIGH):
-			mqttClient.publish_P(getMQTTListenTopic(), highMessage, strlen_P(highMessage), true);
+			mqttClient.publish_P(getMQTTListenTopic(), (uint8_t*)highMessage, strlen_P(highMessage), true);
 			break;
 		case (LOW):
-			mqttClient.publish_P(getMQTTListenTopic(), lowMessage, strlen_P(lowMessage), true);
+			mqttClient.publish_P(getMQTTListenTopic(), (uint8_t*)lowMessage, strlen_P(lowMessage), true);
 			break;
 		}
 	}
