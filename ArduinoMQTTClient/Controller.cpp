@@ -8,18 +8,11 @@
 Controller* Controller::callbackControllerPointer = NULL; // Initial callback controller pointer definition. Changed in Controller constructor to point to correct Controller (there will only be 1)
 Controller::Controller() 
 	 {
-	// Setup an input and output devices
-	//inputDevices[0] = new AlarmMotionSensor(alarmSensorMotion, alarmSensorTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT);
-	++numOfInputs;
+		 
 	// Initialise controller callback to point to current controller
 	if (Controller::callbackControllerPointer == NULL) {
 		Controller::callbackControllerPointer = this;
 	}
-
-	// Setup MQTTClient ready for connection to broker
-	MQTTClient = PubSubClient(ethConnection);
-	MQTTClient.setServer(MQTTBrokerIP, 1883);
-	MQTTClient.setCallback(callbackHandler);
 }
 
 void Controller::setupEthernet() {

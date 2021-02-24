@@ -27,18 +27,22 @@ const char PROGMEM alarmSensorTamper[]{ "stat/ard1/tamp" };
 class Controller {
 
 private:
-	const IPAddress controllerIP = IPAddress(192, 168, 0, 170);
-	const IPAddress MQTTBrokerIP = IPAddress(192, 168, 0, 80);
+	const IPAddress controllerIP{192, 168, 0, 170};
+	const IPAddress MQTTBrokerIP{192, 168, 0, 80};
 	const byte mac[6] = { 0x00,0x01,0x02,0x03,0x04,0x05 };
 	EthernetClient ethConnection;
-	PubSubClient MQTTClient;
+	PubSubClient MQTTClient{MQTTBrokerIP, 1883, callbackHandler, ethConnection};
 	const char controllerName[6] = "MQTT1";
 
-	//AlarmMotionSensor test{alarmSensorMotion, alarmSensorTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
+	AlarmMotionSensor h{alarmSensorMotion, alarmSensorTamper, 2, 3, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
+	AlarmMotionSensor l{alarmSensorMotion, alarmSensorTamper, 4, 5, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
+	AlarmMotionSensor p{alarmSensorMotion, alarmSensorTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
+	AlarmMotionSensor k{alarmSensorMotion, alarmSensorTamper, 8, 9, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
+	AlarmMotionSensor b{alarmSensorMotion, alarmSensorTamper, A4, A5, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
 
-	Input* inputDevices[1];// = {&test}; // Collection of all input devices on the Arduino. Adjust array size to suit
-	byte numOfInputs = 0;
-	Output* outputDevices[5]; // Collection of all output devices on the Arduino. Adjust array size to suit
+	Input* inputDevices[5] = {&h, &l, &p, &k, &b}; // Collection of all input devices on the Arduino. Adjust array size to suit
+	byte numOfInputs = 5;
+	Output* outputDevices[0]; // Collection of all output devices on the Arduino. Adjust array size to suit
 	byte numOfOutputs = 0;
 
 	static Controller* callbackControllerPointer; // Callback pointer will direct the MQTT message callback method to the correct instance of controller (there will only ever be 1 on any Arduino)
