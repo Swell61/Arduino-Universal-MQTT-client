@@ -10,7 +10,7 @@ const char* getProgmemString(const char* progmemStringLocation); // Forward decl
 extern volatile uint8_t arduinoInterruptedPin; // Forward declare
 extern volatile uint8_t arduinoPinState; // Forward declare
 
-Contact* Contact::contacts[16] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+Contact* Contact::contacts[16] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL }; // 16 available pins on ATmega 3228p
 
 // Sets the correct contact instance's stateChangedTo that it will check on the next round of updates (and process if debounce time has passed)
 void Contact::interruptHandler() {

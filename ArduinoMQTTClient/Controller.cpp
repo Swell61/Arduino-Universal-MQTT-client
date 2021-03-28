@@ -6,13 +6,12 @@
 
 
 Controller* Controller::callbackControllerPointer = NULL; // Initial callback controller pointer definition. Changed in Controller constructor to point to correct Controller (there will only be 1)
-Controller::Controller() 
-	 {
-		 
+Controller::Controller() {
+
 	// Initialise controller callback to point to current controller
 	if (Controller::callbackControllerPointer == NULL) {
 		Controller::callbackControllerPointer = this;
-	}
+	} 
 }
 
 void Controller::setupEthernet() {
@@ -21,10 +20,12 @@ void Controller::setupEthernet() {
 }
 
 void Controller::setupMQTT() {
-	
-	MQTTClient.connect(controllerName, "mqtt", "^3r92444@K!MJM!g"); // Temp username and pw for testing (broker will never be opened to internet anyway)
-	
+	Serial.println("Connecting");
+	MQTTClient.connect("one", "test", "testing123"); // Temp username and pw for testing (broker will never be opened to internet anyway)
+	Serial.println(MQTTClient.state());
+	Serial.println("Finished");
 	if (MQTTClient.connected()) { // If last connection attempt was successful, need to subscribe to all output topics
+	Serial.println("Connected");
 		subscribeToOutputs();
 	}
 }
@@ -44,18 +45,21 @@ void Controller::processInputs() {
 }
 
 void Controller::run() {
+	Serial.begin(115200);
 	while (true) {
 
 		if (Ethernet.linkStatus() == LinkOFF || Ethernet.linkStatus() == Unknown) { // If ethernet becomes disconnected
+			Serial.println("Ethernet");
 			setupEthernet();
 		}
 		else if (!MQTTClient.connected()) { // If MQTT client becomes disconnected
+		Serial.println("Setting up MQTT");
 			setupMQTT();
 		}
 		else {
-			processInputs(); // Allow all input devices to process any updates
-			MQTTClient.loop();
-			Ethernet.maintain();
+			//processInputs(); // Allow all input devices to process any updates
+			//MQTTClient.loop();
+			//Ethernet.maintain();
 		}
 	}
 }
