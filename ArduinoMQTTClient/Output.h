@@ -16,12 +16,12 @@ class Output : public MQTTDevice {
 public:
 	Output(const MQTTDevice::DEVICE_TYPE deviceType, const char* mqttStateTopic, const char* mqttRespondTopic);
 	virtual void action(MQTTDevice::ACTION action, PubSubClient mqttClient) = 0;
-	virtual void subscribe(PubSubClient mqttClient) = 0;
+	void subscribe(PubSubClient mqttClient);
 	const char* getMQTTListenTopic(); // Reads MQTT listen topic from program flash memory
 protected:
 	const char* getMQTTStateTopic(); // Reads the MQTT state topic from program flash memory
 private:
-	const char* mqttStateTopic;
+	const char* mqttListenTopic;
 	const char* mqttRespondTopic;
 };
 

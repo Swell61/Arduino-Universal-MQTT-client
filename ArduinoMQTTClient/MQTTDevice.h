@@ -11,7 +11,7 @@
 */
 
 struct actionStringToType; // forward declare
-static char progmemBuffer[15] = { '\0' }; // Buffer to use when reading from program flash memory
+static char progmemBuffer[22] = { '\0' }; // Buffer to use when reading from program flash memory
 const char* getProgmemString(const char* progmemStringLocation); // Takes in a progmem address for a string and returns the start address of a null-terminated buffer containing the string
 
 // String representations of actions

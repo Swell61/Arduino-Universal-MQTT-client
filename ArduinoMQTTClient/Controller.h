@@ -10,6 +10,7 @@
 #include "Output.h"
 #include "AlarmMotionSensor.h"
 #include "MQTTDevice.h"
+#include "Relay.h"
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
@@ -34,6 +35,9 @@ const char PROGMEM masterBedroomMotion[] = { "stat/us/m_bdroom/mot" };
 const char PROGMEM masterBedroomTamper[] = { "stat/us/m_bdroom/tamp" };
 const char PROGMEM landingMotion[] = { "stat/us/landing/mot" };
 const char PROGMEM landingTamper[] = { "stat/us/landing/tamp" };
+const char PROGMEM landingLight[] = { "stat/us/landing/light"};
+const char PROGMEM landingLightCtrl[] = { "ctrl/us/landing/light" };
+const char PROGMEM landingLightResp[] = { "resp/us/landing/light" };
 
 class Controller {
 
@@ -51,11 +55,13 @@ private:
 	AlarmMotionSensor k{kitchenMotion, kitchenTamper, 9, 8, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
 	Contact b{masterBedroomMotion, A4, MOTION_TEXT, NO_MOTION_TEXT};
 	Contact la{landingMotion, A5, MOTION_TEXT, NO_MOTION_TEXT};
+	Contact ll{landingLight, A0, OFF_TEXT, ON_TEXT};
+	Relay llc{landingLightCtrl, landingLightResp, A1, true};
 
-	Input* inputDevices[6] = {&h, &l, &p, &k, &b, &la}; // Collection of all input devices on the Arduino. Adjust array size to suit
-	byte numOfInputs = 6;
-	Output* outputDevices[0]; // Collection of all output devices on the Arduino. Adjust array size to suit
-	byte numOfOutputs = 0;
+	Input* inputDevices[7] = {&h, &l, &p, &k, &b, &la, &ll}; // Collection of all input devices on the Arduino. Adjust array size to suit
+	byte numOfInputs = 7;
+	Output* outputDevices[1] = {&llc}; // Collection of all output devices on the Arduino. Adjust array size to suit
+	byte numOfOutputs = 1;
 
 	static Controller* callbackControllerPointer; // Callback pointer will direct the MQTT message callback method to the correct instance of controller (there will only ever be 1 on any Arduino)
 	static void callbackHandler(char* topic, byte* payload, unsigned int length); // Callback method given to PubSubClient library
