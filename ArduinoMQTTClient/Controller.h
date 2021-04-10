@@ -53,8 +53,8 @@ private:
 	AlarmMotionSensor l{loungeMotion, loungeTamper, 4, 5, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
 	AlarmMotionSensor p{playroomMotion, playroomTamper, 6, 7, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
 	AlarmMotionSensor k{kitchenMotion, kitchenTamper, 8, 9, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
-	Contact b{masterBedroomMotion, A3, MOTION_TEXT, NO_MOTION_TEXT};
-	Contact la{landingMotion, A2, MOTION_TEXT, NO_MOTION_TEXT};
+	Contact b{masterBedroomMotion, A2, MOTION_TEXT, NO_MOTION_TEXT};
+	Contact la{landingMotion, A3, MOTION_TEXT, NO_MOTION_TEXT};
 	Contact ll{landingLight, A0, OFF_TEXT, ON_TEXT};
 	Relay llc{landingLightCtrl, landingLightResp, A1, true};
 
