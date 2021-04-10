@@ -17,7 +17,7 @@ public:
 	Input(const MQTTDevice::DEVICE_TYPE deviceType);
 
 	// This is called once per main loop iteration on each input device. Allows each device to process any changes of state or to send updates out after a certain time period, etc.
-	virtual void handleInput(PubSubClient mqttClient) = 0;
+	virtual void handleInput(PubSubClient& mqttClient) = 0;
 protected:
 	unsigned long lastProcessedMillis = 0; // Time (in millis) since an input was last handled by each Input device
 

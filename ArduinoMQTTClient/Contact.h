@@ -16,11 +16,11 @@
 class Contact : public Input {
 public:
 	Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage);
-	void handleInput(PubSubClient mqttClient) override;
+	void handleInput(PubSubClient& mqttClient) override;
 
 	static void interruptHandler();
 private:
-	static Contact* contacts[16]; // Stores pointer to all contact objects. Each index is a pin number, used for dirrecting an interrupt to the correct instance
+	static Contact* contacts[22]; // Stores pointer to all contact objects. Each index is a pin number, used for dirrecting an interrupt to the correct instance
 
 	const char* highMessage; // MQTT payload for when the pin goes high
 	const char* lowMessage; // MQTT payload for when the pin goes low

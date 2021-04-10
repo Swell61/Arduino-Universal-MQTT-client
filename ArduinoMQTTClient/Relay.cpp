@@ -9,7 +9,7 @@ pinNum(pinNum), activeHigh(activeHigh) {
 	pinMode(pinNum, OUTPUT);
 }
 
-void Relay::action(MQTTDevice::ACTION action, PubSubClient mqttClient) {
+void Relay::action(MQTTDevice::ACTION action, PubSubClient& mqttClient) {
 	switch (action) {
 	case MQTTDevice::ACTION::ON:
 		digitalWrite(pinNum, activeHigh); // Set correct state depending on activeHigh

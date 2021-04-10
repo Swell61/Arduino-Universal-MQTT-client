@@ -11,7 +11,7 @@ AlarmSirenStrobe::AlarmSirenStrobe(const char* alarmMqttCommandTopic, const char
 	: Input(MQTTDevice::DEVICE_TYPE::ALARM_SIREN_STROBE), Output(MQTTDevice::DEVICE_TYPE::ALARM_SIREN_STROBE, alarmMqttCommandTopic, alarmMqttStateTopic),
 	tamperSwitch(tamperMqttStateTopic, tamperSwitchPinNum, tamperHighMessage, tamperLowMessage), sirenPinNum(sirenPinNum), strobePinNum(strobePinNum) { }
 
-void AlarmSirenStrobe::action(MQTTDevice::ACTION action, PubSubClient mqttClient) {
+void AlarmSirenStrobe::action(MQTTDevice::ACTION action, PubSubClient& mqttClient) {
 	switch (action) {
 
 	case MQTTDevice::ACTION::OFF:
@@ -35,7 +35,7 @@ void AlarmSirenStrobe::action(MQTTDevice::ACTION action, PubSubClient mqttClient
 	}
 }
 
-void AlarmSirenStrobe::handleInput(PubSubClient mqttClient) {
+void AlarmSirenStrobe::handleInput(PubSubClient& mqttClient) {
 	// Pass handle through to tamper switch Contact
 	tamperSwitch.handleInput(mqttClient);
 }

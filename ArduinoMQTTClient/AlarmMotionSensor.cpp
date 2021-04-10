@@ -10,7 +10,7 @@ AlarmMotionSensor::AlarmMotionSensor(const char* pirSensorMQTTTopic, const char*
 	pirSensor(pirSensorMQTTTopic, pirSensorPinNum, pirSensorMotionMessage, pirSensorNoMotionMessage),
 	tamperSwitch(tamperSwitchMQTTTopic, tamperSwitchPinNum, tamperSwitchTriggeredMessage, tamperSwitchUntriggeredMessage) {}
 
-void AlarmMotionSensor::handleInput(PubSubClient mqttClient) {
+void AlarmMotionSensor::handleInput(PubSubClient& mqttClient) {
 	pirSensor.handleInput(mqttClient);
 	tamperSwitch.handleInput(mqttClient);
 }

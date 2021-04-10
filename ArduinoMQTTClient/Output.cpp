@@ -7,8 +7,8 @@
 Output::Output(const MQTTDevice::DEVICE_TYPE deviceType, const char* mqttListenTopic, const char* mqttRespondTopic) : MQTTDevice(deviceType), mqttListenTopic(mqttListenTopic), 
 mqttRespondTopic(mqttRespondTopic) {}
 
-void Output::subscribe(PubSubClient mqttClient) {
-	mqttClient.subscribe(mqttListenTopic);
+void Output::subscribe(PubSubClient& mqttClient) {
+	mqttClient.subscribe(getMQTTListenTopic());
 }
 
 const char* Output::getMQTTListenTopic() {
