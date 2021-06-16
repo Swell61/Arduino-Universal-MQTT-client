@@ -19,6 +19,7 @@ const char PROGMEM OPEN_TEXT[] = { "open" };
 const char PROGMEM CLOSE_TEXT[] = { "close" };
 const char PROGMEM ON_TEXT[] = { "on" };
 const char PROGMEM OFF_TEXT[] = { "off" };
+const char PROGMEM TOGGLE_TEXT[] = { "toggle" };
 const char PROGMEM INFO_TEXT[] = { "info" };
 const char PROGMEM CAUTION_TEXT[] = { "caution" };
 const char PROGMEM WARNING_TEXT[] = { "warning" };
@@ -36,6 +37,7 @@ public:
 		RELAY,
 		CURTAIN_PULL,
 		ALARM_SIREN_STROBE,
+		LATCHING_RELAY,
 
 		// Input
 		SWITCH,
@@ -52,10 +54,11 @@ public:
 		INFO,
 		CAUTION,
 		WARNING,
-		ALARM
+		ALARM,
+		TOGGLE
 	};
 
-	const static actionStringToType actionStringsToTypes[8]; // Needs to be updated when a new action type is added
+	const static actionStringToType actionStringsToTypes[9]; // Needs to be updated when a new action type is added
 	
 	MQTTDevice(const MQTTDevice::DEVICE_TYPE deviceType);
 	const MQTTDevice::DEVICE_TYPE getDeviceType() { return deviceType; }
