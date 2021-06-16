@@ -3,6 +3,12 @@
 
 #include "Output.h"
 
+/*
+    Author: Samuel Bailey
+    Date: 15/06/21
+    Purpose: Latching relay that has 2 pole control (set and reset)
+*/
+
 class LatchingRelayTwoPole : public Output {
 public:
     LatchingRelayTwoPole(const char* mqttStateTopic, const char* mqttRespondTopic, const uint8_t setPoleNum, const uint8_t resetPoleNum);
