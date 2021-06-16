@@ -44,7 +44,7 @@ class Controller {
 private:
 	const IPAddress controllerIP{192, 168, 0, 199};
 	const IPAddress MQTTBrokerIP{192, 168, 0, 200};
-	const byte mac[6] = { 0x00,0x01,0x02,0x03,0x04,0x05 };
+	const uint8_t mac[6] = { 0x00,0x01,0x02,0x03,0x04,0x05 };
 	EthernetClient ethConnection;
 	PubSubClient MQTTClient{MQTTBrokerIP, 1883, callbackHandler, ethConnection};
 	const char controllerName[4] = "ad1";
@@ -59,15 +59,15 @@ private:
 	Relay llc{landingLightCtrl, landingLightResp, A1, true};
 
 	Input* inputDevices[7] = {&h, &l, &p, &k, &b, &la, &ll}; // Collection of all input devices on the Arduino. Adjust array size to suit
-	byte numOfInputs = 7;
+	uint8_t numOfInputs = 7;
 	Output* outputDevices[1] = {&llc}; // Collection of all output devices on the Arduino. Adjust array size to suit
-	byte numOfOutputs = 1;
+	uint8_t numOfOutputs = 1;
 
 	static Controller* callbackControllerPointer; // Callback pointer will direct the MQTT message callback method to the correct instance of controller (there will only ever be 1 on any Arduino)
-	static void callbackHandler(char* topic, byte* payload, unsigned int length); // Callback method given to PubSubClient library
-	void callback(char* topic, byte* payload, unsigned int length); // Implementation specific callback method
+	static void callbackHandler(char* topic, uint8_t* payload, unsigned int length); // Callback method given to PubSubClient library
+	void callback(char* topic, uint8_t* payload, unsigned int length); // Implementation specific callback method
 	Output* getOutputDeviceFromTopic(const char* topic); // Returns a pointer to the output device found in the MQTT topic from the broker
-	MQTTDevice::ACTION getActionFromPayload(const byte* payload, unsigned int length); // Converts an MQTT payload into an ACTION enum
+	MQTTDevice::ACTION getActionFromPayload(const uint8_t* payload, unsigned int length); // Converts an MQTT payload into an ACTION enum
 
 	void setupMQTT(); // Connects to MQTT broker
 	void subscribeToOutputs(); // Subscribes to all output device command/listen topics

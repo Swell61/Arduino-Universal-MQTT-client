@@ -15,8 +15,8 @@
 
 class AlarmMotionSensor : public Input {
 public:
-	AlarmMotionSensor(const char* pirSensorMQTTTopic, const char* tamperSwitchMQTTTopic, const byte pirSensorPinNum, const byte tamperSwitchPinNum, const char* pirSensorMotionMessage,
-		const char* pirSensorNoMotionMessage, const char* tamperSwitchTriggeredMessage, const char* tamperSwitchUntriggeredMessage);
+	AlarmMotionSensor(const char* pirSensorMQTTTopic, const char* tamperSwitchMQTTTopic, const uint8_t pirSensorPinNum, const uint8_t tamperSwitchPinNum, 
+		const char* pirSensorMotionMessage, const char* pirSensorNoMotionMessage, const char* tamperSwitchTriggeredMessage, const char* tamperSwitchUntriggeredMessage);
 	void handleInput(PubSubClient& mqttClient);
 private:
 	Contact pirSensor;

@@ -6,8 +6,8 @@
 #include "MQTTDevice.h"
 #include "Arduino.h"
 
-AlarmSirenStrobe::AlarmSirenStrobe(const char* alarmMqttCommandTopic, const char* alarmMqttStateTopic, const char* tamperMqttStateTopic, const char* tamperHighMessage, const char* tamperLowMessage,
-	const byte sirenPinNum, const byte strobePinNum, const byte tamperSwitchPinNum)
+AlarmSirenStrobe::AlarmSirenStrobe(const char* alarmMqttCommandTopic, const char* alarmMqttStateTopic, const char* tamperMqttStateTopic, const char* tamperHighMessage, 
+	const char* tamperLowMessage, const uint8_t sirenPinNum, const uint8_t strobePinNum, const uint8_t tamperSwitchPinNum)
 	: Input(MQTTDevice::DEVICE_TYPE::ALARM_SIREN_STROBE), Output(MQTTDevice::DEVICE_TYPE::ALARM_SIREN_STROBE, alarmMqttCommandTopic, alarmMqttStateTopic),
 	tamperSwitch(tamperMqttStateTopic, tamperSwitchPinNum, tamperHighMessage, tamperLowMessage), sirenPinNum(sirenPinNum), strobePinNum(strobePinNum) { }
 

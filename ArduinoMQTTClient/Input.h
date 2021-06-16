@@ -21,7 +21,7 @@ public:
 protected:
 	unsigned long lastProcessedMillis = 0; // Time (in millis) since an input was last handled by each Input device
 
-	const static byte DEBOUNCE_TIME_MILLIS = 100; // A standard debounce time for ignoring erronious changes (e.g. in a switch with a dirty contact)
+	const static uint8_t DEBOUNCE_TIME_MILLIS = 100; // A standard debounce time for ignoring erronious changes (e.g. in a switch with a dirty contact)
 
 	// Returns true if debounce period is up, false otherwise.
 	bool debounce();

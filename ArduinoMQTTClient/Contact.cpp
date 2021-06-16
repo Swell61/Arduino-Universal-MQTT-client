@@ -18,8 +18,8 @@ void Contact::interruptHandler() {
 }
 
 
-Contact::Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage) : Input(MQTTDevice::DEVICE_TYPE::CONTACT), pinNum(pinNum), mqttStateTopic(deviceMQTTTopic),
-highMessage(highMessage), lowMessage(lowMessage), inputChange(pinNum) {
+Contact::Contact(const char* deviceMQTTTopic, const uint8_t pinNum, const char* highMessage, const char* lowMessage) : Input(MQTTDevice::DEVICE_TYPE::CONTACT), 
+	pinNum(pinNum), mqttStateTopic(deviceMQTTTopic), highMessage(highMessage), lowMessage(lowMessage), inputChange(pinNum) {
 	contacts[pinNum] = this; // Record that this object has pin 'pinNum' for use in callback
 	pinMode(pinNum, INPUT_PULLUP);
 	enableInterrupt(pinNum, Contact::interruptHandler, CHANGE); // Enable interrup for current pin on level change so as not to miss a change

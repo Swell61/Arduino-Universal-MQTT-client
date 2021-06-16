@@ -1,8 +1,8 @@
 #include "LatchingRelayTwoPole.h"
 #include <Arduino.h>
 
-LatchingRelayTwoPole::LatchingRelayTwoPole(const char* mqttStateTopic, const char* mqttRespondTopic, const unsigned short int setPoleNum,
-     const unsigned short int resetPoleNum) : Output(MQTTDevice::DEVICE_TYPE::LATCHING_RELAY, mqttStateTopic, mqttRespondTopic), setPoleNum(setPoleNum), 
+LatchingRelayTwoPole::LatchingRelayTwoPole(const char* mqttStateTopic, const char* mqttRespondTopic, const uint8_t setPoleNum,
+     const uint8_t resetPoleNum) : Output(MQTTDevice::DEVICE_TYPE::LATCHING_RELAY, mqttStateTopic, mqttRespondTopic), setPoleNum(setPoleNum), 
      resetPoleNum(resetPoleNum)
      {
          pinMode(setPoleNum, OUTPUT);
@@ -40,7 +40,7 @@ void LatchingRelayTwoPole::toggleOff(PubSubClient& mqttClient) {
     lastState = LOW;
 }
 
-void LatchingRelayTwoPole::togglePole(unsigned short int pinNum) {
+void LatchingRelayTwoPole::togglePole(uint8_t pinNum) {
     digitalWrite(setPoleNum, HIGH);
     delay(poleHoldTime); // Better to use interrupt but this is a quick implementation and (probably) uses less memory
     digitalWrite(setPoleNum, LOW);

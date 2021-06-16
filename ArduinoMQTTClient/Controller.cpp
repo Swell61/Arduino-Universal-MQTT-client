@@ -27,14 +27,14 @@ void Controller::setupMQTT() {
 
 void Controller::subscribeToOutputs() {
 	// Subscribe to all output device topics
-	for (byte outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
+	for (uint8_t outputDeviceIndex = 0; outputDeviceIndex < numOfOutputs; ++outputDeviceIndex) {
 		outputDevices[outputDeviceIndex]->subscribe(MQTTClient);
 	}
 }
 
 // Called once per main loop. Allows input devices to process any pending changes (e.g. change in pin state, timer lapse for temperature report, etc)
 void Controller::processInputs() {
-	for (byte inputIndex = 0; inputIndex < numOfInputs; ++inputIndex) {
+	for (uint8_t inputIndex = 0; inputIndex < numOfInputs; ++inputIndex) {
 		inputDevices[inputIndex]->handleInput(MQTTClient);
 	}
 }
@@ -55,13 +55,13 @@ void Controller::run() {
 	}
 }
 
-void Controller::callback(char* topic, byte* payload, unsigned int length) {
+void Controller::callback(char* topic, uint8_t* payload, unsigned int length) {
 	// Passes the new ACTION to the correct output device, along with MQTTClient to allow it to respond with the change
 	getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length), MQTTClient);
 }
 
 Output* Controller::getOutputDeviceFromTopic(const char* topic) {
-	for (byte outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
+	for (uint8_t outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
 		if (strncmp(outputDevices[outputIndex]->getMQTTListenTopic(), topic, sizeof(topic)) == 0) {
 			return outputDevices[outputIndex];
 		}
@@ -70,8 +70,8 @@ Output* Controller::getOutputDeviceFromTopic(const char* topic) {
 }
 
 // Finds the corresponding ACTION enum for the payload send by broker
-MQTTDevice::ACTION Controller::getActionFromPayload(const byte* payload, unsigned int payloadLength) {
-	for (byte actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
+MQTTDevice::ACTION Controller::getActionFromPayload(const uint8_t* payload, unsigned int payloadLength) {
+	for (uint8_t actionTypeIndex = 0; actionTypeIndex < sizeof(MQTTDevice::actionStringsToTypes) / sizeof(actionStringToType); ++actionTypeIndex) {
 		// Compare the payload to each string representation of each ACTION enum
 		if (memcmp(payload, getProgmemString(MQTTDevice::actionStringsToTypes[actionTypeIndex].string), payloadLength) == 0) {
 			return MQTTDevice::actionStringsToTypes[actionTypeIndex].type;
@@ -80,7 +80,7 @@ MQTTDevice::ACTION Controller::getActionFromPayload(const byte* payload, unsigne
 	return MQTTDevice::ACTION::INFO;
 }
 
-void Controller::callbackHandler(char* topic, byte* payload, unsigned int length) {
+void Controller::callbackHandler(char* topic, uint8_t* payload, unsigned int length) {
 	// Gives callback to correct Controller instance
 	Controller::callbackControllerPointer->callback(topic, payload, length);
 }

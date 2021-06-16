@@ -11,10 +11,10 @@
 */
 class TempSensor : public Input {
 public:
-	TempSensor(const char* deviceMQTTTopic, const byte pinNum);
+	TempSensor(const char* deviceMQTTTopic, const uint8_t pinNum);
 	void handleInput(PubSubClient& mqttClient) override;
 private:
-	const byte pinNum;
+	const uint8_t pinNum;
 	const char* mqttStateTopic;
 };
 

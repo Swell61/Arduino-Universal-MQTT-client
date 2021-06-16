@@ -4,7 +4,7 @@
 
 #include "Relay.h"
 
-Relay::Relay(const char* mqttStateTopic, const char* mqttRespondTopic, const byte pinNum, const bool activeHigh) : Output(MQTTDevice::DEVICE_TYPE::RELAY, mqttStateTopic, mqttRespondTopic), 
+Relay::Relay(const char* mqttStateTopic, const char* mqttRespondTopic, const uint8_t pinNum, const bool activeHigh) : Output(MQTTDevice::DEVICE_TYPE::RELAY, mqttStateTopic, mqttRespondTopic), 
 pinNum(pinNum), activeHigh(activeHigh) {
 	pinMode(pinNum, OUTPUT);
 }

@@ -32,7 +32,7 @@ const char PROGMEM NORMAL_TEXT[] = { "normal" };
 class MQTTDevice {
 
 public:
-	enum DEVICE_TYPE : byte {
+	enum DEVICE_TYPE : uint8_t {
 		// Outputs
 		RELAY,
 		CURTAIN_PULL,
@@ -46,7 +46,7 @@ public:
 		ALARM_MOTION_SENSOR,
 	};
 
-	enum ACTION : byte {
+	enum ACTION : uint8_t {
 		OFF,
 		ON,
 		OPEN,

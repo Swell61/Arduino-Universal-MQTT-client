@@ -15,7 +15,7 @@
 
 class Contact : public Input {
 public:
-	Contact(const char* deviceMQTTTopic, const byte pinNum, const char* highMessage, const char* lowMessage);
+	Contact(const char* deviceMQTTTopic, const uint8_t pinNum, const char* highMessage, const char* lowMessage);
 	void handleInput(PubSubClient& mqttClient) override;
 
 	static void interruptHandler();
@@ -24,7 +24,7 @@ private:
 
 	const char* highMessage; // MQTT payload for when the pin goes high
 	const char* lowMessage; // MQTT payload for when the pin goes low
-	const byte pinNum; // Pin number the contact device is connected to
+	const uint8_t pinNum; // Pin number the contact device is connected to
 	const char* mqttStateTopic; // MQTT topic to use to report a state change
 	volatile struct InputChange inputChange;
 	const char* getMQTTListenTopic();
