@@ -4,16 +4,13 @@
  Author:	Samuel
 */
 
-#include <SPI.h>
-#include <EEPROM.h>
-#include <PubSubClient.h>
-#include <UIPEthernet.h>
 #include "Controller.h"
 
 #define EI_ARDUINO_INTERRUPTED_PIN
 #include <EnableInterrupt.h>
 #define DEBUG
 void setup() {
+	Serial.begin(115200);
 	Controller controller;
 	controller.run();
 }

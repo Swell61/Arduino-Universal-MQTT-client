@@ -4,7 +4,7 @@
 #define _CONTROLLER_h
 #include <Arduino.h>
 
-#include <UIPEthernet.h>
+#include <EthernetENC.h>
 #include <PubSubClient.h>
 #include "Input.h"
 #include "Output.h"

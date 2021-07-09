@@ -2,11 +2,12 @@
 // 
 // 
 #include "Controller.h"
-#include <../UIPEthernet/UIPEthernet.h>
+#include <EthernetENC.h>
 
 
 Controller* Controller::callbackControllerPointer = NULL; // Initial callback controller pointer definition. Changed in Controller constructor to point to correct Controller (there will only be 1)
 Controller::Controller() {
+	Ethernet.init(10);
 	// Initialise controller callback to point to current controller
 	if (Controller::callbackControllerPointer == NULL) {
 		Controller::callbackControllerPointer = this;
@@ -40,11 +41,13 @@ void Controller::processInputs() {
 }
 
 void Controller::run() {
+	setupEthernet();
 	while (true) {
-		if (Ethernet.linkStatus() == LinkOFF || Ethernet.linkStatus() == Unknown) { // If ethernet becomes disconnected
-			setupEthernet();
-		}
-		else if (!MQTTClient.connected()) { // If MQTT client becomes disconnected
+		// if (Ethernet.linkStatus() != LinkON) { // If ethernet becomes disconnected
+		// 	Serial.println(F("connecting"));
+		// }
+		if (!MQTTClient.connected()) { // If MQTT client becomes disconnected
+		Serial.println(F("mqtt"));
 			setupMQTT();
 		}
 		else {
