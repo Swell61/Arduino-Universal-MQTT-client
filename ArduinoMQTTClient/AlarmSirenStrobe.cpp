@@ -18,19 +18,19 @@ void AlarmSirenStrobe::action(MQTTDevice::ACTION action, PubSubClient& mqttClien
 		// Siren and strobe to off
 		digitalWrite(sirenPinNum, LOW);
 		digitalWrite(strobePinNum, LOW);
-		mqttClient.publish_P(getMQTTStateTopic(), (uint8_t*)OFF_TEXT, strlen_P(OFF_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)OFF_TEXT, strlen_P(OFF_TEXT), false);
 		break;
 	case MQTTDevice::ACTION::WARNING:
 		// Siren to off, strobe to on
 		digitalWrite(sirenPinNum, LOW);
 		digitalWrite(strobePinNum, HIGH);
-		mqttClient.publish_P(getMQTTStateTopic(), (uint8_t*)WARNING_TEXT, strlen_P(WARNING_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)WARNING_TEXT, strlen_P(WARNING_TEXT), false);
 		break;
 	case MQTTDevice::ACTION::ALARM:
 		// Siren and strobe to on
 		digitalWrite(sirenPinNum, HIGH);
 		digitalWrite(strobePinNum, HIGH);
-		mqttClient.publish_P(getMQTTStateTopic(), (uint8_t*)ALARM_TEXT, strlen_P(ALARM_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)ALARM_TEXT, strlen_P(ALARM_TEXT), false);
 		break;
 	}
 }

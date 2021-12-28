@@ -43,11 +43,7 @@ void Controller::processInputs() {
 void Controller::run() {
 	setupEthernet();
 	while (true) {
-		// if (Ethernet.linkStatus() != LinkON) { // If ethernet becomes disconnected
-		// 	Serial.println(F("connecting"));
-		// }
 		if (!MQTTClient.connected()) { // If MQTT client becomes disconnected
-		Serial.println(F("mqtt"));
 			setupMQTT();
 		}
 		else {
@@ -60,12 +56,16 @@ void Controller::run() {
 
 void Controller::callback(char* topic, uint8_t* payload, unsigned int length) {
 	// Passes the new ACTION to the correct output device, along with MQTTClient to allow it to respond with the change
-	getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length), MQTTClient);
+	Output *output = getOutputDeviceFromTopic(topic);
+	if (output != NULL) {
+		getOutputDeviceFromTopic(topic)->action(getActionFromPayload(payload, length), MQTTClient);
+	}
 }
 
 Output* Controller::getOutputDeviceFromTopic(const char* topic) {
 	for (uint8_t outputIndex = 0; outputIndex < numOfOutputs; ++outputIndex) {
-		if (strncmp(outputDevices[outputIndex]->getMQTTListenTopic(), topic, sizeof(topic)) == 0) {
+		const char *currentDeviceTopic = outputDevices[outputIndex]->getMQTTListenTopic();
+		if (strncmp(currentDeviceTopic, topic, sizeof(currentDeviceTopic)) == 0) {
 			return outputDevices[outputIndex];
 		}
 	}

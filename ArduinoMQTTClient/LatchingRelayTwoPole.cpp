@@ -21,8 +21,10 @@ void LatchingRelayTwoPole::action(MQTTDevice::ACTION action, PubSubClient& mqttC
         switch (lastState) {
             case LOW:
                 toggleOn(mqttClient);
+                break;
             case HIGH:
                 toggleOff(mqttClient);
+                break;
         }
         break;
     }
@@ -30,18 +32,18 @@ void LatchingRelayTwoPole::action(MQTTDevice::ACTION action, PubSubClient& mqttC
 
 void LatchingRelayTwoPole::toggleOn(PubSubClient& mqttClient) {
     togglePole(setPoleNum);
-	mqttClient.publish_P(getMQTTStateTopic(), ON_TEXT, strlen_P(ON_TEXT), false);
+	mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)ON_TEXT, strlen_P(ON_TEXT), false);
     lastState = HIGH;
 }
 
 void LatchingRelayTwoPole::toggleOff(PubSubClient& mqttClient) {
     togglePole(resetPoleNum);
-	mqttClient.publish_P(getMQTTStateTopic(), OFF_TEXT, strlen_P(OFF_TEXT), false);
+	mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)OFF_TEXT, strlen_P(OFF_TEXT), false);
     lastState = LOW;
 }
 
 void LatchingRelayTwoPole::togglePole(uint8_t pinNum) {
-    digitalWrite(setPoleNum, HIGH);
+    digitalWrite(pinNum, HIGH);
     delay(poleHoldTime); // Better to use interrupt but this is a quick implementation and (probably) uses less memory
-    digitalWrite(setPoleNum, LOW);
+    digitalWrite(pinNum, LOW);
 }

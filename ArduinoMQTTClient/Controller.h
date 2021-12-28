@@ -10,7 +10,7 @@
 #include "Output.h"
 #include "AlarmMotionSensor.h"
 #include "MQTTDevice.h"
-#include "Relay.h"
+#include "LatchingRelayTwoPole.h"
 /*
 	Author: Samuel Bailey
 	Date: 31/07/2019
@@ -42,8 +42,8 @@ const char PROGMEM landingLightResp[] = { "resp/us/landing/light" };
 class Controller {
 
 private:
-	const IPAddress controllerIP{192, 168, 0, 199};
-	const IPAddress MQTTBrokerIP{192, 168, 0, 200};
+	const IPAddress controllerIP{192, 168, 10, 199};
+	const IPAddress MQTTBrokerIP{192, 168, 10, 200};
 	const uint8_t mac[6] = { 0x00,0x01,0x02,0x03,0x04,0x05 };
 	EthernetClient ethConnection;
 	PubSubClient MQTTClient{MQTTBrokerIP, 1883, callbackHandler, ethConnection};
@@ -55,8 +55,8 @@ private:
 	AlarmMotionSensor k{kitchenMotion, kitchenTamper, 8, 9, MOTION_TEXT, NO_MOTION_TEXT, TAMPERED_TEXT, NORMAL_TEXT};
 	Contact b{masterBedroomMotion, A2, MOTION_TEXT, NO_MOTION_TEXT};
 	Contact la{landingMotion, A3, MOTION_TEXT, NO_MOTION_TEXT};
-	Contact ll{landingLight, A0, OFF_TEXT, ON_TEXT};
-	Relay llc{landingLightCtrl, landingLightResp, A1, true};
+	Contact ll{landingLight, 1, OFF_TEXT, ON_TEXT};
+	LatchingRelayTwoPole llc{landingLightCtrl, landingLightResp, A5, A4};
 
 	Input* inputDevices[7] = {&h, &l, &p, &k, &b, &la, &ll}; // Collection of all input devices on the Arduino. Adjust array size to suit
 	uint8_t numOfInputs = 7;

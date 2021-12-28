@@ -9,9 +9,8 @@
 #define EI_ARDUINO_INTERRUPTED_PIN
 #include <EnableInterrupt.h>
 #define DEBUG
+Controller controller;
 void setup() {
-	Serial.begin(115200);
-	Controller controller;
 	controller.run();
 }
 

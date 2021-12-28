@@ -13,11 +13,11 @@ void Relay::action(MQTTDevice::ACTION action, PubSubClient& mqttClient) {
 	switch (action) {
 	case MQTTDevice::ACTION::ON:
 		digitalWrite(pinNum, activeHigh); // Set correct state depending on activeHigh
-		mqttClient.publish_P(getMQTTStateTopic(), ON_TEXT, strlen_P(ON_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)ON_TEXT, strlen_P(ON_TEXT), false);
 		break;
 	case MQTTDevice::ACTION::OFF:
 		digitalWrite(pinNum, !activeHigh); // Set correct state depending on activeHigh
-		mqttClient.publish_P(getMQTTStateTopic(), OFF_TEXT, strlen_P(OFF_TEXT), false);
+		mqttClient.publish_P(getMQTTStateTopic(), (const uint8_t*)OFF_TEXT, strlen_P(OFF_TEXT), false);
 		break;
 	}
 }

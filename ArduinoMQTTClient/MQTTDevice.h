@@ -43,7 +43,7 @@ public:
 		SWITCH,
 		CONTACT,
 		TEMP_SENSOR,
-		ALARM_MOTION_SENSOR,
+		ALARM_MOTION_SENSOR
 	};
 
 	enum ACTION : uint8_t {
@@ -74,6 +74,4 @@ struct actionStringToType {
 	MQTTDevice::ACTION type;
 };
 
-
 #endif
-
